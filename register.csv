@@ -1,0 +1,28 @@
+ID,Risk,Lifecycle,Description
+AIR01,Shadow AI Deployments,"Deployment,Use",Undocumented/unapproved AI tool deployments by internal teams.
+AIR02,Supply Chain Vulnerabilities,"Development,Deployment","Vulnerability risks from dependency libraries, or third-party tools (e.g., a compromised open-source package or a poisoned pre-trained model pulled from a public model hub)."
+AIR03,Data Leakage,"Development,Use",Sensitive data exposed through third-party tools & API calls.
+AIR04,Cross-Border Data Transfer,"Deployment,Use",Data processed across risky jurisdictions.
+AIR05,No Validation / Improper Output,Use,Unsafe or misleading model outputs executed without proper validation.
+AIR06,Insecure Deployment Pipelines,Deployment,Weaknesses in CI/CD or model deployment processes.
+AIR07,Critical 3rd-party Dependency,"Development,Deployment","Vulnerabilities related to critical dependencies on third-party libraries or frameworks (e.g., an unpatched CVE in a core ML framework, or an outage/breaking change at a foundation-model API provider)."
+AIR08,Excessive Agency / Over-Reliance on AI,Use,Decisions made without sufficient oversight or validation.
+AIR09,Model Poisoning,Development,Malicious data injected during training to manipulate model behavior.
+AIR10,Model Inversion / Membership Inference,Use,Attackers reconstruct or identify training data from model outputs.
+AIR11,Poor Monitoring,Monitoring,"No mechanisms to track model performance, bias, usage, or anomalies or absence of regular audit."
+AIR12,Feedback Loop Contamination,"Use,Monitoring",Feedback loops when model outputs influence future inputs.
+AIR13,Alert Fatigue,Monitoring,Alert systems can fail to notify or can overwhelm operators.
+AIR14,Insider Threats,"Development,Deployment,Use",Malicious or negligent actions by employees or contractors.
+AIR15,Adversarial Attacks,Use,"A type of attack in which an attacker deliberately alters input data to mislead the model (e.g., prompt injection to bypass safety filters, or imperceptible image perturbations that fool a vision classifier)."
+AIR16,Model Drift,"Use,Monitoring",Performance degradation due to changing data distributions.
+AIR17,Implicit Bias in Outputs,"Development,Use",Skewed results due to biased training data or model design (implicit only).
+AIR18,Critical Unintended Consequences,"Development,Deployment,Use","Harmful side-effects the model produces without explicit intent or anticipation by its designers (e.g., blackmail-like manipulation to avoid shutdown, or circumvention of its own safety safeguards during testing, poor pipeline design without proper validation for the outcomes)."
+AIR19,Censorship/Guardrail interference,Use,Model safety mechanisms interfere with valid outputs.
+AIR20,Deployment misfit,"Deployment,Use",The data distribution differs from training or model is not suitable for the deployment context.
+AIR21,Lack of Explainability,"Development,Use",Inability to interpret or justify model decisions.
+AIR22,No Accountability,"Development,Deployment,Monitoring",Unclear who is responsible for the failures.
+AIR23,Unclear Model Ownership/IP,Development,"In case of custom development and deployment, legal risks may arise."
+AIR24,Output Integrity Tampering,Use,"Model outputs are intercepted or altered in transit/storage so a downstream system acts on a manipulated result while believing it’s genuine (e.g., a man-in-the-middle attack altering a fraud-score before it reaches a decision engine)."
+AIR25,System Prompt / Instruction Leakage,Use,"Confidential system prompts, internal instructions, or embedded credentials are extracted by end users via crafted queries, exposing business logic or guardrail design."
+AIR26,RAG / Vector Store Vulnerabilities,"Development,Use","Weaknesses in embedding generation, storage, or retrieval (e.g., cross-tenant access to a shared vector database, embedding inversion revealing source documents, or poisoned documents injected into a retrieval corpus)."
+AIR27,Unbounded Consumption,"Use,Monitoring","Uncontrolled or excessive inference requests degrade availability or generate runaway compute costs (e.g., oversized prompts or high-volume requests exhausting GPU capacity or inflating API billing), also known as Denial of Wallet/Service."
