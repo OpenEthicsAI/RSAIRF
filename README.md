@@ -1,4 +1,4 @@
-# RSAIRF
+# Really Simple AI Risk Framework (RSAIRF)
 
 **Really Simple AI Risk Framework** is your go to tool to identify and mitigate AI/ML-specific risks. The AI Risk Register of this framework is carefully curated based on various sources and internal incident learnings of our clients.
 
