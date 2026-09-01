@@ -74,6 +74,30 @@ flowchart TD
 
 > Treat this as a living list: if you identify a risk not represented here, propose it by [creating an issue](https://github.com/OpenEthicsAI/RSAIRF/issues/new) in this repository, your contribution may help other teams.
 
+## Scoring risks
+
+For every applicable risk, record two ratings and multiply them. This keeps prioritization consistent across initiatives without heavy tooling. We suggest an industry standard **Risk score = likelihood × impact** that maps to most of the existing risk frameworks (range 1–25).
+
+**Likelihood** — how probable it is that the risk materializes in your context:
+
+| Score | Likelihood | Meaning |
+| --- | --- | --- |
+| 1 | Rare | Not expected during the initiative’s lifetime. |
+| 2 | Unlikely | Could occur, but not expected. |
+| 3 | Possible | May occur occasionally. |
+| 4 | Likely | Expected to occur at some point. |
+| 5 | Almost certain | Expected to occur often, or already observed. |
+
+**Impact** — how severe the consequence would be if it did:
+
+| Score | Impact | Meaning |
+| --- | --- | --- |
+| 1 | Negligible | Minimal effect; no material harm. |
+| 2 | Minor | Limited harm, easily remediated. |
+| 3 | Moderate | Noticeable harm, cost, or user impact. |
+| 4 | Major | Significant financial, regulatory, or reputational harm. |
+| 5 | Severe | Critical or potentially irreversible harm to people, rights, or the organization. |
+
 ## License
 
 This work is licensed under the Creative Commons Attribution 4.0
