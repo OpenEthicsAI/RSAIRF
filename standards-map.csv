@@ -1,0 +1,31 @@
+AIR ID,Risk,NIST AI RMF,OWASP LLM Top 10 (2025),EU AI Act,ISO/IEC 42001 (Annex A),MITRE ATLAS
+AIR01,Shadow AI Deployments,GOVERN (Accountable & Transparent),—,Art 9 (risk management); Art 26 (deployer obligations),A.2 (AI policy); A.9.2 (responsible use),—
+AIR02,Supply Chain Vulnerabilities,MAP (Secure & Resilient),LLM03:2025 Supply Chain,Art 15 (cybersecurity); Art 25 (value-chain responsibilities),A.10.3 (suppliers); A.4.3 (tooling resources),AML.T0010 AI Supply Chain Compromise
+AIR03,Data Leakage,MEASURE (Privacy-Enhanced),LLM02:2025 Sensitive Information Disclosure,Art 10 (data governance),A.7.2 (data management); A.4.2 (data resources),AML.T0057 LLM Data Leakage
+AIR04,Cross-Border Data Transfer,GOVERN (Privacy-Enhanced),—,Art 10 (data governance),A.7.5 (data provenance); A.10.4 (customers),—
+AIR05,No Validation / Improper Output,MEASURE (Valid & Reliable; Safe),LLM05:2025 Improper Output Handling; LLM09:2025 Misinformation,Art 15 (accuracy & robustness); Art 14 (human oversight),A.6.2.4 (verification & validation),AML.T0048 External Harms
+AIR06,Insecure Deployment Pipelines,MANAGE (Secure & Resilient),LLM03:2025 Supply Chain,Art 15 (cybersecurity),A.6.2.5 (deployment); A.6.2.8 (event logs),AML.T0010 AI Supply Chain Compromise; AML.T0055 Unsecured Credentials
+AIR07,Critical 3rd-party Dependency,MAP (Secure & Resilient),LLM03:2025 Supply Chain,Art 25 (value-chain responsibilities); Art 15 (cybersecurity),A.10.2 (allocating responsibilities); A.10.3 (suppliers),AML.T0010 AI Supply Chain Compromise
+AIR08,Excessive Agency / Over-Reliance on AI,MANAGE (Accountable & Transparent),LLM06:2025 Excessive Agency,Art 14 (human oversight),A.9.2 (responsible use),AML.T0053 AI Agent Tool Invocation
+AIR09,Model Poisoning,MEASURE (Secure & Resilient),LLM04:2025 Data and Model Poisoning,Art 10 (data governance); Art 15 (robustness),A.7.4 (data quality); A.6.2.3 (design & development),AML.T0020 Poison Training Data; AML.T0018 Manipulate AI Model
+AIR10,Model Inversion / Membership Inference / Theft,MEASURE (Privacy-Enhanced; Secure & Resilient),LLM02:2025 Sensitive Information Disclosure,Art 15 (cybersecurity),A.4.2 (data resources); A.6.2.6 (operation & monitoring),AML.T0024 Exfiltration via AI Inference API
+AIR11,Poor Monitoring,MANAGE (Accountable & Transparent),—,Art 72 (post-market monitoring); Art 12 (record-keeping),A.6.2.6 (operation & monitoring); A.6.2.8 (event logs),—
+AIR12,Feedback Loop Contamination,MEASURE (Valid & Reliable),LLM04:2025 Data and Model Poisoning,Art 15 (accuracy); Art 72 (post-market monitoring),A.6.2.6 (operation & monitoring); A.7.4 (data quality),AML.T0059 Erode Dataset Integrity
+AIR13,Alert Fatigue,MANAGE (Safe),—,Art 14 (human oversight); Art 72 (post-market monitoring),A.6.2.6 (operation & monitoring),—
+AIR14,Insider Threats,GOVERN (Secure & Resilient),—,Art 15 (cybersecurity),A.3 (internal organization); A.4.5 (human resources),AML.T0012 Valid Accounts; AML.T0055 Unsecured Credentials
+AIR15,Adversarial Attacks,MEASURE (Secure & Resilient),LLM01:2025 Prompt Injection,Art 15 (robustness & cybersecurity),A.6.2.4 (verification & validation),AML.T0043 Craft Adversarial Data; AML.T0051 LLM Prompt Injection
+AIR16,Model Drift,MEASURE (Valid & Reliable),—,Art 15 (accuracy); Art 72 (post-market monitoring),A.6.2.6 (operation & monitoring),—
+AIR17,Bias & Discrimination in Outputs,MEASURE (Fair – with Harmful Bias Managed),—,Art 10 (data governance); Art 15 (accuracy),A.5.4 (impacts on individuals & society); A.7.4 (data quality),—
+AIR18,Critical Unintended Consequences,MAP (Safe),—,Art 9 (risk management); Art 14 (human oversight),A.5.2 (AI system impact assessment),AML.T0048 External Harms
+AIR19,Censorship/Guardrail interference,MEASURE (Valid & Reliable),—,Art 13 (transparency); Art 15 (accuracy),A.6.2.4 (verification & validation); A.9.2 (responsible use),—
+AIR20,Deployment misfit,MAP (Valid & Reliable),—,Art 13 (instructions for use); Art 9 (risk management),A.9.4 (intended use); A.5.2 (impact assessment),—
+AIR21,Lack of Explainability / Provenance opacity,MEASURE (Explainable & Interpretable; Accountable & Transparent),—,Art 13 (transparency); Art 50 (AI/deepfake disclosure),A.8.2 (system documentation); A.5.3 (documentation),—
+AIR22,No Accountability,GOVERN (Accountable & Transparent),—,Art 9 (risk management); Art 26 (deployer obligations),A.3 (roles & responsibilities); A.10.2 (allocating responsibilities),—
+AIR23,Unclear Model Ownership/IP,GOVERN (Accountable & Transparent),—,Art 53 (GPAI copyright policy),A.10.4 (customers); A.2 (AI policy),AML.T0048.004 AI Intellectual Property Theft
+AIR24,Output Integrity Tampering,MANAGE (Secure & Resilient),LLM05:2025 Improper Output Handling,Art 15 (cybersecurity),A.6.2.6 (operation & monitoring); A.6.2.8 (event logs),AML.T0031 Erode AI Model Integrity
+AIR25,System Prompt / Instruction Leakage,MEASURE (Secure & Resilient),LLM07:2025 System Prompt Leakage,Art 15 (cybersecurity),A.6.2.6 (operation & monitoring),AML.T0056 Extract LLM System Prompt
+AIR26,RAG / Vector Store Vulnerabilities,MEASURE (Secure & Resilient; Privacy-Enhanced),LLM08:2025 Vector and Embedding Weaknesses,Art 10 (data governance); Art 15 (cybersecurity),A.7.2 (data management),AML.T0070 RAG Poisoning
+AIR27,Unbounded Consumption,MANAGE (Secure & Resilient),LLM10:2025 Unbounded Consumption,Art 15 (robustness),A.6.2.6 (operation & monitoring),AML.T0029 Denial of AI Service; AML.T0034 Cost Harvesting
+AIR28,Malicious Use / Out-of-Scope Exploitation,MAP/MANAGE (Safe),LLM09:2025 Misinformation,Art 5 (prohibited practices); Art 50 (deepfake disclosure),A.9.4 (intended use); A.5.2 (impact assessment),AML.T0048 External Harms; AML.T0088 Generate Deepfakes
+AIR29,Multi-Agent & Agentic AI Risks,MAP/MANAGE (Secure & Resilient; Safe),LLM06:2025 Excessive Agency,Art 14 (human oversight); Art 15 (robustness),A.6.2.3 (design & development); A.9.2 (responsible use),AML.T0053 AI Agent Tool Invocation; AML.T0051 LLM Prompt Injection
+AIR30,Environmental / Sustainability Impact,MAP (Accountable & Transparent),—,Art 40 (harmonised standards); Art 95 (codes of conduct),A.4.4 (system & computing resources); A.5.4 (societal impacts),—

@@ -1,0 +1,602 @@
+<title>RSAIRF</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    color-scheme: light;
+    --paper:      #EEF0EA;
+    --paper-raised:#E2E6D9;
+    --ink:        #1B1F1C;
+    --ink-soft:   #565F52;
+    --ink-faint:  #898F80;
+    --line:       #CBD1BE;
+    --accent:     #C4491F;
+    --accent-ink: #FBF3EC;
+    --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --critical:#d03b3b;
+    --good-ink:#08350a; --warn-ink:#3a2705; --serious-ink:#3a1408; --critical-ink:#fdf0ee;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --paper:      #15170F;
+      --paper-raised:#1F2317;
+      --ink:        #E9EAE1;
+      --ink-soft:   #9CA48E;
+      --ink-faint:  #6E7563;
+      --line:       #2E3325;
+      --accent:     #E2803F;
+      --accent-ink: #1B1005;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:      #15170F;
+    --paper-raised:#1F2317;
+    --ink:        #E9EAE1;
+    --ink-soft:   #9CA48E;
+    --ink-faint:  #6E7563;
+    --line:       #2E3325;
+    --accent:     #E2803F;
+    --accent-ink: #1B1005;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, sans-serif;
+    font-size:16px; line-height:1.5;
+  }
+
+  ::selection{ background:var(--accent); color:var(--accent-ink); }
+
+  h1,h2,h3{ font-family:"Newsreader", Georgia, serif; font-weight:560; text-wrap:balance; margin:0; }
+  .mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; }
+
+  .kicker{
+    font-family:"IBM Plex Mono", monospace; font-size:.72rem; font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 .9rem;
+  }
+
+  /* ---- deck chrome ---- */
+  .progress{ position:fixed; top:0; left:0; height:2px; background:var(--accent); width:0%; z-index:50; transition:width .15s linear; }
+  .counter{
+    position:fixed; left:1.5rem; bottom:1.4rem; z-index:50;
+    font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--ink-soft);
+    display:flex; gap:.4em; align-items:baseline;
+  }
+  .counter b{ color:var(--ink); font-weight:600; }
+  .wordmark{
+    position:fixed; right:1.5rem; bottom:1.4rem; z-index:50;
+    font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.08em; color:var(--ink-faint);
+  }
+  .dotnav{
+    position:fixed; right:1.6rem; top:50%; transform:translateY(-50%); z-index:50;
+    display:flex; flex-direction:column; gap:.55rem;
+  }
+  .dotnav button{
+    width:7px; height:7px; padding:0; border-radius:50%; border:1px solid var(--ink-faint);
+    background:transparent; cursor:pointer; transition:background .2s, border-color .2s, transform .2s;
+  }
+  .dotnav button:hover{ transform:scale(1.3); }
+  .dotnav button[aria-current="true"]{ background:var(--accent); border-color:var(--accent); }
+  .dotnav button:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  @media (max-width: 720px){ .dotnav{ display:none; } }
+
+  /* ---- slides ---- */
+  .slide{
+    min-height:100vh; min-height:100svh;
+    scroll-snap-align:start; scroll-snap-stop:always;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:5rem 6vw 4.5rem;
+    position:relative; border-bottom:1px solid var(--line);
+  }
+  .slide-inner{ max-width:64rem; margin:0 auto; width:100%; }
+  .slide[data-wide] .slide-inner{ max-width:74rem; }
+
+  .reveal-el{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  .slide.is-active .reveal-el{ opacity:1; transform:none; }
+  .reveal-el:nth-child(1){transition-delay:.02s;}
+  .reveal-el:nth-child(2){transition-delay:.10s;}
+  .reveal-el:nth-child(3){transition-delay:.18s;}
+  .reveal-el:nth-child(4){transition-delay:.26s;}
+  .reveal-el:nth-child(5){transition-delay:.34s;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal-el{ opacity:1; transform:none; transition:none; }
+  }
+
+  p.lede{ font-size:1.08rem; color:var(--ink-soft); max-width:42em; line-height:1.65; }
+  p.lede em{ color:var(--ink); font-style:italic; }
+
+  /* ---- shared bits ---- */
+  .stat-row{ display:flex; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2rem; flex-wrap:wrap; }
+  .stat{ flex:1 1 10rem; background:var(--paper); padding:1.1rem 1.3rem; }
+  .stat .n{ font-family:"IBM Plex Mono",monospace; font-size:1.6rem; font-weight:600; font-variant-numeric:tabular-nums; }
+  .stat .l{ font-size:.82rem; color:var(--ink-soft); margin-top:.25rem; }
+
+  blockquote{
+    margin:1.6rem 0 0; padding:0 0 0 1.1rem; border-left:2px solid var(--accent);
+    font-family:"Newsreader", serif; font-style:italic; font-size:1.05rem; color:var(--ink);
+  }
+
+  table{ border-collapse:collapse; width:100%; }
+  caption{ caption-side:top; text-align:left; }
+  th,td{ text-align:left; padding:.6rem .9rem; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; }
+  td{ font-size:.94rem; }
+  td.n{ font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; color:var(--ink-soft); }
+  .scrollx{ overflow-x:auto; }
+
+  a.link{ color:var(--accent); text-decoration:none; border-bottom:1px solid currentColor; }
+  a.link:hover{ opacity:.75; }
+
+  /* ===== slide 1 : title ===== */
+  #s1{ justify-content:space-between; }
+  .brand{ display:flex; align-items:center; gap:.6em; }
+  .brand-mark{ width:9px; height:9px; background:var(--accent); }
+  .brand span{ font-family:"IBM Plex Mono",monospace; font-size:.78rem; letter-spacing:.12em; color:var(--ink-soft); }
+  #s1 h1{ font-size:clamp(2.6rem,6vw,4.6rem); line-height:1.02; margin-top:2.2rem; }
+  #s1 .sub{ margin-top:1.3rem; font-size:1.18rem; color:var(--ink-soft); max-width:34em; line-height:1.6; }
+  .meta-row{ display:flex; flex-wrap:wrap; gap:.5em 1.6em; margin-top:auto; padding-top:3rem; }
+  .meta-row div{ font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--ink-faint); }
+  .meta-row strong{ color:var(--ink-soft); font-weight:500; }
+  .watermark{
+    position:absolute; right:-2vw; bottom:-4vh; font-family:"IBM Plex Mono",monospace;
+    font-size:min(30vw,20rem); font-weight:600; color:var(--ink); opacity:.035; line-height:1;
+    pointer-events:none; user-select:none;
+  }
+
+  /* ===== lifecycle diagram ===== */
+  .lifecycle{ margin-top:2.4rem; }
+  .stage-row{ display:flex; align-items:stretch; gap:.4rem; }
+  .stage-card{
+    flex:1; background:var(--paper-raised); border:1px solid var(--line); padding:1.1rem 1.2rem;
+  }
+  .stage-card .name{ font-weight:600; font-size:1.02rem; }
+  .stage-card .role{ font-size:.8rem; color:var(--ink-soft); margin-top:.3rem; }
+  .arrow{ display:flex; align-items:center; font-family:"IBM Plex Mono",monospace; color:var(--ink-faint); font-size:1.1rem; padding:0 .1rem; }
+  .monitor-track{ display:flex; gap:.4rem; margin-top:.15rem; }
+  .monitor-slot{ flex:1; display:flex; flex-direction:column; align-items:center; }
+  .monitor-slot .tick{ font-family:"IBM Plex Mono",monospace; color:var(--ink-faint); font-size:.95rem; line-height:1; }
+  .monitor-band{
+    margin-top:.15rem; background:transparent; border:1px dashed var(--line); padding:.85rem 1.2rem;
+    text-align:center; font-size:.86rem; color:var(--ink-soft);
+  }
+  .monitor-band b{ color:var(--ink); font-weight:600; }
+  .arrow-spacer{ width:1.6rem; }
+
+  .stage-defs{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; margin-top:2.2rem; }
+  .stage-defs dt{ font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--accent); font-weight:500; }
+  .stage-defs dd{ margin:.35rem 0 0; font-size:.86rem; color:var(--ink-soft); line-height:1.5; }
+
+  @media (max-width:860px){
+    .stage-row{ flex-direction:column; } .arrow{ transform:rotate(90deg); justify-content:center; }
+    .monitor-track{ display:none; } .stage-defs{ grid-template-columns:1fr 1fr; }
+  }
+
+  /* ===== steps ===== */
+  .steps{ counter-reset:step; margin-top:2.2rem; display:flex; flex-direction:column; gap:1.15rem; max-width:38em; }
+  .step{ display:flex; gap:1rem; }
+  .step .num{
+    counter-increment:step; font-family:"IBM Plex Mono",monospace; font-size:.85rem; color:var(--accent);
+    flex:none; width:1.6rem; padding-top:.15rem;
+  }
+  .step .num::before{ content:"0" counter(step); }
+  .step p{ margin:0; font-size:.98rem; }
+  .step p b{ font-weight:600; }
+  .notes{ display:flex; flex-direction:column; gap:.9rem; margin-top:1rem; }
+  .loop-tag{ display:inline-flex; align-items:center; gap:.4em; margin-top:1.6rem; font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--ink-soft); }
+
+  /* ===== scoring tables ===== */
+  .score-table-wrap{ margin-top:1.8rem; }
+  .formula{
+    margin-top:1.6rem; font-family:"IBM Plex Mono",monospace; font-size:1.05rem; color:var(--ink);
+    background:var(--paper-raised); border:1px solid var(--line); display:inline-block; padding:.7rem 1.1rem;
+  }
+  .formula b{ color:var(--accent); }
+
+  /* ===== risk matrix ===== */
+  .matrix-wrap{ display:flex; gap:2.2rem; align-items:flex-start; margin-top:2rem; flex-wrap:wrap; }
+  .matrix{ display:grid; grid-template-columns:5.2rem repeat(5,minmax(3.6rem,1fr)); gap:3px; }
+  .matrix .corner,.matrix .colhead,.matrix .rowhead{
+    font-family:"IBM Plex Mono",monospace; font-size:.68rem; color:var(--ink-soft); display:flex; align-items:center;
+  }
+  .matrix .colhead{ justify-content:center; text-align:center; padding:.3rem 0; }
+  .matrix .rowhead{ justify-content:flex-end; text-align:right; padding-right:.5rem; }
+  .cell{
+    aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    font-family:"IBM Plex Mono",monospace; font-weight:600; font-variant-numeric:tabular-nums; font-size:.95rem;
+  }
+  .cell.low{ background:var(--good); color:#eafce8; }
+  .cell.med{ background:var(--warn); color:var(--warn-ink); }
+  .cell.high{ background:var(--serious); color:var(--serious-ink); }
+  .cell.crit{ background:var(--critical); color:var(--critical-ink); }
+  .legend{ display:flex; flex-direction:column; gap:.6rem; padding-top:.4rem; }
+  .legend .row{ display:flex; align-items:center; gap:.6em; font-size:.86rem; color:var(--ink-soft); }
+  .legend .sw{ width:.85em; height:.85em; flex:none; }
+  .legend b{ color:var(--ink); font-weight:600; }
+  .axis-label{ font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); }
+
+  /* ===== bar chart ===== */
+  .bars{ margin-top:2.2rem; display:flex; flex-direction:column; gap:1.05rem; max-width:44rem; }
+  .bar-row{ display:grid; grid-template-columns:8rem 1fr 3.2rem; align-items:center; gap:.9rem; }
+  .bar-row .lbl{ font-size:.9rem; color:var(--ink-soft); }
+  .bar-track{ position:relative; height:1.6rem; background:var(--paper-raised); }
+  .bar-track .grid{ position:absolute; inset:0; display:flex; }
+  .bar-track .grid i{ flex:1; border-left:1px solid var(--line); }
+  .bar-track .grid i:first-child{ border-left:none; }
+  .bar-fill{ position:absolute; inset:0 auto 0 0; background:var(--accent); transition:background .2s; }
+  .bar-row:hover .bar-fill{ background:var(--ink); }
+  .bar-row:hover .lbl{ color:var(--ink); }
+  .bar-row .val{ font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; text-align:right; font-size:.92rem; }
+  .bars-note{ margin-top:1.2rem; font-size:.82rem; color:var(--ink-faint); max-width:38em; }
+
+  /* ===== spotlight cards ===== */
+  .card-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.2rem; }
+  .risk-card{ background:var(--paper); padding:1.3rem 1.3rem 1.4rem; display:flex; flex-direction:column; gap:.6rem; }
+  .risk-card .tag{ align-self:flex-start; font-family:"IBM Plex Mono",monospace; font-size:.72rem; color:var(--accent); border:1px solid var(--accent); padding:.15em .5em; }
+  .risk-card h3{ font-size:1.05rem; font-family:"IBM Plex Sans",sans-serif; font-weight:600; }
+  .risk-card p{ margin:0; font-size:.86rem; color:var(--ink-soft); line-height:1.55; }
+  .risk-card .stages{ margin-top:auto; padding-top:.4rem; font-family:"IBM Plex Mono",monospace; font-size:.68rem; color:var(--ink-faint); }
+  @media (max-width:860px){ .card-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .card-grid{ grid-template-columns:1fr; } }
+
+  /* ===== full register table ===== */
+  .register-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 2.4rem; margin-top:1.8rem; }
+  .register-grid table{ font-size:.82rem; }
+  .register-grid th,.register-grid td{ padding:.42rem .5rem; }
+  .register-grid td:first-child{ font-family:"IBM Plex Mono",monospace; color:var(--accent); font-size:.78rem; white-space:nowrap; }
+  .register-grid td:last-child{ color:var(--ink-faint); font-size:.72rem; }
+  @media (max-width:860px){ .register-grid{ grid-template-columns:1fr; } }
+
+  /* ===== closing ===== */
+  #s11 .sub{ font-size:1.1rem; color:var(--ink-soft); max-width:34em; margin-top:1.1rem; line-height:1.6; }
+  .cta-row{ display:flex; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.4rem; max-width:40rem; }
+  .cta{ flex:1; background:var(--paper); padding:1.1rem 1.3rem; }
+  .cta .k{ font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); }
+  .cta .v{ margin-top:.4rem; font-size:.92rem; }
+</style>
+
+<div class="progress" id="progress"></div>
+<div class="counter"><b id="counterCur">01</b><span>/ 11</span></div>
+<div class="wordmark">RSAIRF</div>
+<nav class="dotnav" id="dotnav" aria-label="Slide navigation"></nav>
+
+<section class="slide" id="s1" data-wide>
+  <div class="slide-inner">
+    <div class="reveal-el brand"><span class="brand-mark"></span><span>AI RISK GOVERNANCE</span></div>
+    <h1 class="reveal-el">Really Simple<br>AI&nbsp;Risk Framework</h1>
+    <p class="reveal-el sub">A shared register for naming, scoring, and tracking what can go wrong when you build, ship, or run AI &mdash; thirty risks, four lifecycle stages, one ID space.</p>
+  </div>
+  <div class="meta-row reveal-el">
+    <div><strong>RSAIRF</strong> &middot; Open Ethics Initiative</div>
+    <div>github.com/OpenEthicsAI/RSAIRF</div>
+    <div>Licensed CC BY 4.0</div>
+  </div>
+  <div class="watermark">01&ndash;30</div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="slide-inner">
+    <p class="kicker reveal-el">Why it exists</p>
+    <p class="reveal-el lede" style="font-family:'Newsreader',serif; font-style:italic; font-size:1.55rem; color:var(--ink); max-width:30em; line-height:1.35;">Every organization deploys and uses AI. Few build it. Almost none monitor it well.</p>
+    <p class="reveal-el lede" style="margin-top:1.6rem;">The AI Risk Register is curated from public sources and the internal incident learnings of real client engagements &mdash; not written from theory. It exists because the biggest exposures usually aren&rsquo;t in the model itself. They&rsquo;re in the gaps around it: tools adopted without approval, and monitoring that was never built.</p>
+    <div class="stat-row reveal-el">
+      <div class="stat"><div class="n">30</div><div class="l">registered risks</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">lifecycle stages</div></div>
+      <div class="stat"><div class="n">AIR01&ndash;30</div><div class="l">traceable IDs</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s3" data-wide>
+  <div class="slide-inner">
+    <p class="kicker reveal-el">The lifecycle</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Every initiative moves through four stages</h2>
+    <div class="lifecycle reveal-el">
+      <div class="stage-row">
+        <div class="stage-card"><div class="name">Development</div><div class="role">Model Development</div></div>
+        <div class="arrow">&rarr;</div>
+        <div class="stage-card"><div class="name">Deployment</div><div class="role">Model / Component Deployment</div></div>
+        <div class="arrow">&rarr;</div>
+        <div class="stage-card"><div class="name">Use</div><div class="role">AI Use</div></div>
+      </div>
+      <div class="monitor-track">
+        <div class="monitor-slot"><div class="tick">&#8597;</div></div>
+        <div class="arrow-spacer"></div>
+        <div class="monitor-slot"><div class="tick">&#8597;</div></div>
+        <div class="arrow-spacer"></div>
+        <div class="monitor-slot"><div class="tick">&#8597;</div></div>
+      </div>
+      <div class="monitor-band"><b>Continuous Monitoring &amp; Evaluation</b> &mdash; runs across all three stages, and feeds findings back into any of them</div>
+    </div>
+    <dl class="stage-defs reveal-el">
+      <div><dt>Development</dt><dd>You design or materially change AI behavior &mdash; data selection, training, tuning, evaluation.</dd></div>
+      <div><dt>Deployment</dt><dd>You don&rsquo;t build the model, but you integrate, configure, and release AI components into production.</dd></div>
+      <div><dt>Use</dt><dd>You consume a deployed AI solution and make decisions or take actions based on its outputs.</dd></div>
+      <div><dt>Monitoring</dt><dd>You track risk, quality, and incidents over time &mdash; continuous, and running across every other stage.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="slide-inner">
+    <p class="kicker reveal-el">The process</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Four steps, repeated at every transition</h2>
+    <div class="steps reveal-el">
+      <div class="step"><span class="num"></span><p>Check which lifecycle stages apply to your initiative &mdash; run a discovery session with your technical team if it&rsquo;s unclear.</p></div>
+      <div class="step"><span class="num"></span><p>Map risks using <span class="mono" style="font-size:.88em;">register.csv</span>. Stage tags show where each risk is typically introduced or first exploitable.</p></div>
+      <div class="step"><span class="num"></span><p>For every applicable <b>AIR##</b> risk, record likelihood, impact, an owner, and a mitigation &mdash; and reference that ID in your project&rsquo;s risk log or audit.</p></div>
+      <div class="step"><span class="num"></span><p>Found a risk that isn&rsquo;t represented? Open a repository issue &mdash; your contribution may help other teams too.</p></div>
+    </div>
+    <blockquote class="reveal-el">Re-check the register at each stage transition &mdash; a risk that was out of scope earlier may now apply.</blockquote>
+    <div class="loop-tag reveal-el">&#8635; treat this as a living list, not a one-time checklist</div>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="slide-inner">
+    <p class="kicker reveal-el">Scoring &middot; 1 of 2</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">How probable it is</h2>
+    <p class="reveal-el lede">For every applicable risk, rate <b style="color:var(--ink)">likelihood</b> &mdash; how probable it is that the risk materializes in your context.</p>
+    <div class="score-table-wrap reveal-el scrollx">
+      <table>
+        <tr><th>Score</th><th>Likelihood</th><th>Meaning</th></tr>
+        <tr><td class="n">1</td><td>Rare</td><td>Not expected during the initiative&rsquo;s lifetime.</td></tr>
+        <tr><td class="n">2</td><td>Unlikely</td><td>Could occur, but not expected.</td></tr>
+        <tr><td class="n">3</td><td>Possible</td><td>May occur occasionally.</td></tr>
+        <tr><td class="n">4</td><td>Likely</td><td>Expected to occur at some point.</td></tr>
+        <tr><td class="n">5</td><td>Almost certain</td><td>Expected to occur often, or already observed.</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="slide-inner">
+    <p class="kicker reveal-el">Scoring &middot; 2 of 2</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">How severe, if it happens</h2>
+    <p class="reveal-el lede">Then rate <b style="color:var(--ink)">impact</b> &mdash; the severity of the consequence if the risk does materialize.</p>
+    <div class="score-table-wrap reveal-el scrollx">
+      <table>
+        <tr><th>Score</th><th>Impact</th><th>Meaning</th></tr>
+        <tr><td class="n">1</td><td>Negligible</td><td>Minimal effect; no material harm.</td></tr>
+        <tr><td class="n">2</td><td>Minor</td><td>Limited harm, easily remediated.</td></tr>
+        <tr><td class="n">3</td><td>Moderate</td><td>Noticeable harm, cost, or user impact.</td></tr>
+        <tr><td class="n">4</td><td>Major</td><td>Significant financial, regulatory, or reputational harm.</td></tr>
+        <tr><td class="n">5</td><td>Severe</td><td>Critical or potentially irreversible harm to people, rights, or the organization.</td></tr>
+      </table>
+    </div>
+    <div class="formula reveal-el">Risk score&nbsp;=&nbsp;<b>Likelihood</b>&nbsp;&times;&nbsp;<b>Impact</b>&nbsp;&nbsp;&middot;&nbsp;&nbsp;range 1&ndash;25</div>
+  </div>
+</section>
+
+<section class="slide" id="s7" data-wide>
+  <div class="slide-inner">
+    <p class="kicker reveal-el">The matrix</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Likelihood &times; impact, at a glance</h2>
+    <p class="reveal-el lede">The same 1&ndash;25 score, banded into four priority levels &mdash; consistent across initiatives, without heavy tooling.</p>
+    <div class="matrix-wrap reveal-el">
+      <div>
+        <div class="axis-label" style="margin-bottom:.5rem;">Impact &rarr;</div>
+        <div class="matrix" id="matrixGrid"></div>
+        <div class="axis-label" style="margin-top:.6rem; writing-mode:vertical-rl; display:none;"></div>
+      </div>
+      <div class="legend">
+        <div class="axis-label" style="margin-bottom:.2rem;">Priority band</div>
+        <div class="row"><span class="sw" style="background:var(--good)"></span><b>Low</b>&nbsp;&middot; score 1&ndash;4</div>
+        <div class="row"><span class="sw" style="background:var(--warn)"></span><b>Medium</b>&nbsp;&middot; score 5&ndash;9</div>
+        <div class="row"><span class="sw" style="background:var(--serious)"></span><b>High</b>&nbsp;&middot; score 10&ndash;14</div>
+        <div class="row"><span class="sw" style="background:var(--critical)"></span><b>Critical</b>&nbsp;&middot; score 15&ndash;25</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s8" data-wide>
+  <div class="slide-inner">
+    <p class="kicker reveal-el">The register</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Thirty risks, mapped across four stages</h2>
+    <div class="bars reveal-el" id="barsWrap"></div>
+    <p class="bars-note reveal-el">Counts sum to more than 30 because several risks are tagged to more than one lifecycle stage.</p>
+  </div>
+</section>
+
+<section class="slide" id="s9" data-wide>
+  <div class="slide-inner">
+    <p class="kicker reveal-el">Spotlight</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">A sample from the register</h2>
+    <div class="card-grid reveal-el">
+      <div class="risk-card">
+        <span class="tag">AIR01</span>
+        <h3>Shadow AI Deployments</h3>
+        <p>AI tools or models deployed and used by internal teams without documentation, approval, or oversight from security or governance.</p>
+        <div class="stages">DEPLOYMENT &middot; USE</div>
+      </div>
+      <div class="risk-card">
+        <span class="tag">AIR03</span>
+        <h3>Data Leakage</h3>
+        <p>Sensitive data exposed through third-party tools, API calls, or model interactions, leading to loss of confidentiality or regulatory breach.</p>
+        <div class="stages">DEVELOPMENT &middot; USE</div>
+      </div>
+      <div class="risk-card">
+        <span class="tag">AIR15</span>
+        <h3>Adversarial Attacks</h3>
+        <p>An attacker deliberately alters input data to mislead the model &mdash; from prompt injection to imperceptible perturbations.</p>
+        <div class="stages">USE</div>
+      </div>
+      <div class="risk-card">
+        <span class="tag">AIR17</span>
+        <h3>Bias &amp; Discrimination in Outputs</h3>
+        <p>Skewed or discriminatory results from biased training data or model design, including unequal performance across demographic groups.</p>
+        <div class="stages">DEVELOPMENT &middot; USE</div>
+      </div>
+      <div class="risk-card">
+        <span class="tag">AIR27</span>
+        <h3>Unbounded Consumption</h3>
+        <p>Uncontrolled or excessive inference requests degrade availability or generate runaway compute costs &mdash; a.k.a. Denial of Wallet/Service.</p>
+        <div class="stages">USE &middot; MONITORING</div>
+      </div>
+      <div class="risk-card">
+        <span class="tag">AIR29</span>
+        <h3>Multi-Agent &amp; Agentic AI Risks</h3>
+        <p>Risks specific to autonomous agents acting with tools and memory via an agent harness &mdash; unconstrained tool access, unsafe actions, and privilege escalation.</p>
+        <div class="stages">DEVELOPMENT &middot; DEPLOYMENT &middot; USE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s10" data-wide>
+  <div class="slide-inner">
+    <p class="kicker reveal-el">Full register</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.6rem,3vw,2.1rem);">All thirty, AIR01&ndash;AIR30</h2>
+    <div class="register-grid reveal-el" id="registerGrid"></div>
+  </div>
+</section>
+
+<section class="slide" id="s11">
+  <div class="slide-inner">
+    <p class="kicker reveal-el">Get involved</p>
+    <h2 class="reveal-el" style="font-size:clamp(2rem,4vw,2.8rem);">Treat it as a living list.</h2>
+    <p class="reveal-el sub">If you identify a risk not represented here, propose it by opening an issue in the repository &mdash; your contribution may help other teams facing the same gap.</p>
+    <div class="cta-row reveal-el">
+      <div class="cta"><div class="k">Repository</div><div class="v"><a class="link" href="https://github.com/OpenEthicsAI/RSAIRF" target="_blank" rel="noopener">github.com/OpenEthicsAI/RSAIRF</a></div></div>
+      <div class="cta"><div class="k">License</div><div class="v">CC BY 4.0</div></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  document.getElementById('counterCur').textContent = '01';
+
+  var dotnav = document.getElementById('dotnav');
+  slides.forEach(function(s, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+    b.addEventListener('click', function(){ s.scrollIntoView({behavior:'smooth'}); });
+    dotnav.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotnav.children);
+
+  var progress = document.getElementById('progress');
+  var counterCur = document.getElementById('counterCur');
+  var activeIndex = 0;
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('is-active');
+        var idx = slides.indexOf(e.target);
+        if(idx > -1){
+          activeIndex = idx;
+          counterCur.textContent = String(idx+1).padStart(2,'0');
+          dots.forEach(function(d,i){ d.setAttribute('aria-current', i===idx ? 'true' : 'false'); });
+        }
+      }
+    });
+  }, { threshold:0.55 });
+  slides.forEach(function(s){ io.observe(s); });
+
+  window.addEventListener('scroll', function(){
+    var doc = document.documentElement;
+    var pct = (doc.scrollTop) / (doc.scrollHeight - doc.clientHeight) * 100;
+    progress.style.width = (isFinite(pct) ? pct : 0) + '%';
+  }, { passive:true });
+
+  document.addEventListener('keydown', function(ev){
+    if(['ArrowDown','ArrowRight','PageDown'].indexOf(ev.key) > -1){
+      ev.preventDefault();
+      var next = slides[Math.min(activeIndex+1, total-1)];
+      next.scrollIntoView({behavior:'smooth'});
+    } else if(['ArrowUp','ArrowLeft','PageUp'].indexOf(ev.key) > -1){
+      ev.preventDefault();
+      var prev = slides[Math.max(activeIndex-1, 0)];
+      prev.scrollIntoView({behavior:'smooth'});
+    }
+  });
+
+  // risk matrix
+  var likelihoods = ['Rare','Unlikely','Possible','Likely','Almost certain'];
+  var impacts = ['Negligible','Minor','Moderate','Major','Severe'];
+  function band(v){ if(v<=4) return 'low'; if(v<=9) return 'med'; if(v<=14) return 'high'; return 'crit'; }
+  var grid = document.getElementById('matrixGrid');
+  var html = '<div class="corner"></div>';
+  impacts.forEach(function(name,i){ html += '<div class="colhead">'+ (i+1) +'</div>'; });
+  for(var l=1;l<=5;l++){
+    html += '<div class="rowhead">'+ l +' &middot; '+ likelihoods[l-1] +'</div>';
+    for(var im=1;im<=5;im++){
+      var v = l*im;
+      html += '<div class="cell '+ band(v) +'">'+ v +'</div>';
+    }
+  }
+  grid.innerHTML = html;
+
+  // stage distribution bars
+  var stageData = [
+    { label:'Use', value:23 },
+    { label:'Development', value:13 },
+    { label:'Deployment', value:12 },
+    { label:'Monitoring', value:6 }
+  ];
+  var max = Math.max.apply(null, stageData.map(function(d){return d.value;}));
+  var barsWrap = document.getElementById('barsWrap');
+  barsWrap.innerHTML = stageData.map(function(d){
+    var pct = (d.value/max*100).toFixed(1);
+    return '<div class="bar-row">'+
+      '<div class="lbl">'+ d.label +'</div>'+
+      '<div class="bar-track"><div class="grid">'+ '<i></i>'.repeat(5) +'</div><div class="bar-fill" style="width:'+ pct +'%"></div></div>'+
+      '<div class="val">'+ d.value +'</div>'+
+    '</div>';
+  }).join('');
+
+  // full register
+  var register = [
+    ['AIR01','Shadow AI Deployments','Deployment, Use'],
+    ['AIR02','Supply Chain Vulnerabilities','Development, Deployment'],
+    ['AIR03','Data Leakage','Development, Use'],
+    ['AIR04','Cross-Border Data Transfer','Deployment, Use'],
+    ['AIR05','No Validation / Improper Output','Use'],
+    ['AIR06','Insecure Deployment Pipelines','Deployment'],
+    ['AIR07','Critical 3rd-party Dependency','Development, Deployment'],
+    ['AIR08','Excessive Agency / Over-Reliance on AI','Use'],
+    ['AIR09','Model Poisoning','Development'],
+    ['AIR10','Model Inversion / Membership Inference / Theft','Deployment, Use'],
+    ['AIR11','Poor Monitoring','Monitoring'],
+    ['AIR12','Feedback Loop Contamination','Use, Monitoring'],
+    ['AIR13','Alert Fatigue','Monitoring'],
+    ['AIR14','Insider Threats','Development, Deployment, Use'],
+    ['AIR15','Adversarial Attacks','Use'],
+    ['AIR16','Model Drift','Use, Monitoring'],
+    ['AIR17','Bias & Discrimination in Outputs','Development, Use'],
+    ['AIR18','Critical Unintended Consequences','Development, Deployment, Use'],
+    ['AIR19','Censorship/Guardrail interference','Use'],
+    ['AIR20','Deployment misfit','Deployment, Use'],
+    ['AIR21','Lack of Explainability / Provenance opacity','Development, Use'],
+    ['AIR22','No Accountability','Development, Deployment, Monitoring'],
+    ['AIR23','Unclear Model Ownership/IP','Development, Use'],
+    ['AIR24','Output Integrity Tampering','Use'],
+    ['AIR25','System Prompt / Instruction Leakage','Use'],
+    ['AIR26','RAG / Vector Store Vulnerabilities','Development, Use'],
+    ['AIR27','Unbounded Consumption','Use, Monitoring'],
+    ['AIR28','Malicious Use / Out-of-Scope Exploitation','Deployment, Use'],
+    ['AIR29','Multi-Agent & Agentic AI Risks','Development, Deployment, Use'],
+    ['AIR30','Environmental / Sustainability Impact','Development, Use']
+  ];
+  function tableFor(rows){
+    var out = '<table><tr><th>ID</th><th>Risk</th><th>Stage</th></tr>';
+    rows.forEach(function(r){
+      out += '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';
+    });
+    return out + '</table>';
+  }
+  document.getElementById('registerGrid').innerHTML =
+    tableFor(register.slice(0,15)) + tableFor(register.slice(15));
+})();
+</script>
