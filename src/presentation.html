@@ -1,42 +1,50 @@
 <title>RSAIRF</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;900&family=Roboto+Slab:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;600;700;900&family=Roboto+Mono:wght@400;500;600&display=swap">
 <style>
   :root{
     color-scheme: light;
-    --paper:      #EEF0EA;
-    --paper-raised:#E2E6D9;
-    --ink:        #1B1F1C;
-    --ink-soft:   #565F52;
-    --ink-faint:  #898F80;
-    --line:       #CBD1BE;
-    --accent:     #C4491F;
-    --accent-ink: #FBF3EC;
-    --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --critical:#d03b3b;
-    --good-ink:#08350a; --warn-ink:#3a2705; --serious-ink:#3a1408; --critical-ink:#fdf0ee;
+    --paper:      #FFFFFF;
+    --paper-raised:#F8F8F8;
+    --ink:        #1B1F23;
+    --ink-soft:   #454545;
+    --ink-faint:  #999999;
+    --line:       #E0E0E0;
+    --accent:         #3E8914;
+    --accent-ink:     #FFFFFF;
+    --accent-secondary: #05668D;
+    --font-head: "Exo 2", Arial, sans-serif;
+    --font-sub:  "Roboto Slab", Georgia, serif;
+    --font-body: "Roboto", Arial, sans-serif;
+    --font-mono: "Roboto Mono", ui-monospace, monospace;
+    /* POV Matrix scale (design.md) — green -> red risk/maturity ramp */
+    --good:#387A13; --warn:#FFF12C; --serious:#D66F2C; --critical:#CC232A;
+    --good-ink:#FFFFFF; --warn-ink:#454545; --serious-ink:#FFFFFF; --critical-ink:#FFFFFF;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       color-scheme: dark;
-      --paper:      #15170F;
-      --paper-raised:#1F2317;
-      --ink:        #E9EAE1;
-      --ink-soft:   #9CA48E;
-      --ink-faint:  #6E7563;
-      --line:       #2E3325;
-      --accent:     #E2803F;
-      --accent-ink: #1B1005;
+      --paper:      #1B1F23;
+      --paper-raised:#24282C;
+      --ink:        #F2F2F0;
+      --ink-soft:   #C7C7C7;
+      --ink-faint:  #8A8A8A;
+      --line:       #34383C;
+      --accent:         #4B9C1C;
+      --accent-ink:     #10210A;
+      --accent-secondary: #3894B8;
     }
   }
   :root[data-theme="dark"]{
     color-scheme: dark;
-    --paper:      #15170F;
-    --paper-raised:#1F2317;
-    --ink:        #E9EAE1;
-    --ink-soft:   #9CA48E;
-    --ink-faint:  #6E7563;
-    --line:       #2E3325;
-    --accent:     #E2803F;
-    --accent-ink: #1B1005;
+    --paper:      #1B1F23;
+    --paper-raised:#24282C;
+    --ink:        #F2F2F0;
+    --ink-soft:   #C7C7C7;
+    --ink-faint:  #8A8A8A;
+    --line:       #34383C;
+    --accent:         #4B9C1C;
+    --accent-ink:     #10210A;
+    --accent-secondary: #3894B8;
   }
 
   *,*::before,*::after{ box-sizing:border-box; }
@@ -45,17 +53,18 @@
 
   body{
     margin:0; background:var(--paper); color:var(--ink);
-    font-family:"IBM Plex Sans", system-ui, sans-serif;
+    font-family:var(--font-body);
     font-size:16px; line-height:1.5;
   }
 
   ::selection{ background:var(--accent); color:var(--accent-ink); }
 
-  h1,h2,h3{ font-family:"Newsreader", Georgia, serif; font-weight:560; text-wrap:balance; margin:0; }
-  .mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; }
+  h1,h2,h3{ font-family:var(--font-head); font-weight:400; text-wrap:balance; margin:0; }
+  h1{ font-weight:300; }
+  .mono{ font-family:var(--font-mono); }
 
   .kicker{
-    font-family:"IBM Plex Mono", monospace; font-size:.72rem; font-weight:500;
+    font-family:var(--font-head); font-size:.74rem; font-weight:900;
     letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 .9rem;
   }
 
@@ -63,13 +72,13 @@
   .progress{ position:fixed; top:0; left:0; height:2px; background:var(--accent); width:0%; z-index:50; transition:width .15s linear; }
   .counter{
     position:fixed; left:1.5rem; bottom:1.4rem; z-index:50;
-    font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--ink-soft);
+    font-family:var(--font-mono); font-size:.78rem; color:var(--ink-soft);
     display:flex; gap:.4em; align-items:baseline;
   }
   .counter b{ color:var(--ink); font-weight:600; }
   .wordmark{
     position:fixed; right:1.5rem; bottom:1.4rem; z-index:50;
-    font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.08em; color:var(--ink-faint);
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; color:var(--ink-faint);
   }
   .dotnav{
     position:fixed; right:1.6rem; top:50%; transform:translateY(-50%); z-index:50;
@@ -107,43 +116,43 @@
     .reveal-el{ opacity:1; transform:none; transition:none; }
   }
 
-  p.lede{ font-size:1.08rem; color:var(--ink-soft); max-width:42em; line-height:1.65; }
-  p.lede em{ color:var(--ink); font-style:italic; }
+  p.lede{ font-family:var(--font-sub); font-size:1.08rem; color:var(--ink-soft); max-width:42em; line-height:1.65; }
+  p.lede em{ color:var(--ink); font-style:normal; }
 
   /* ---- shared bits ---- */
   .stat-row{ display:flex; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2rem; flex-wrap:wrap; }
   .stat{ flex:1 1 10rem; background:var(--paper); padding:1.1rem 1.3rem; }
-  .stat .n{ font-family:"IBM Plex Mono",monospace; font-size:1.6rem; font-weight:600; font-variant-numeric:tabular-nums; }
+  .stat .n{ font-family:var(--font-mono); font-size:1.6rem; font-weight:600; font-variant-numeric:tabular-nums; }
   .stat .l{ font-size:.82rem; color:var(--ink-soft); margin-top:.25rem; }
 
   blockquote{
     margin:1.6rem 0 0; padding:0 0 0 1.1rem; border-left:2px solid var(--accent);
-    font-family:"Newsreader", serif; font-style:italic; font-size:1.05rem; color:var(--ink);
+    font-family:var(--font-sub); font-size:1.05rem; color:var(--ink);
   }
 
   table{ border-collapse:collapse; width:100%; }
   caption{ caption-side:top; text-align:left; }
   th,td{ text-align:left; padding:.6rem .9rem; border-bottom:1px solid var(--line); vertical-align:top; }
-  th{ font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; }
+  th{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; }
   td{ font-size:.94rem; }
-  td.n{ font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; color:var(--ink-soft); }
+  td.n{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; color:var(--ink-soft); }
   .scrollx{ overflow-x:auto; }
 
-  a.link{ color:var(--accent); text-decoration:none; border-bottom:1px solid currentColor; }
+  a.link{ color:var(--accent-secondary); text-decoration:none; border-bottom:1px solid currentColor; }
   a.link:hover{ opacity:.75; }
 
   /* ===== slide 1 : title ===== */
   #s1{ justify-content:space-between; }
   .brand{ display:flex; align-items:center; gap:.6em; }
   .brand-mark{ width:9px; height:9px; background:var(--accent); }
-  .brand span{ font-family:"IBM Plex Mono",monospace; font-size:.78rem; letter-spacing:.12em; color:var(--ink-soft); }
+  .brand span{ font-family:var(--font-head); font-weight:900; font-size:.76rem; letter-spacing:.12em; color:var(--ink-soft); }
   #s1 h1{ font-size:clamp(2.6rem,6vw,4.6rem); line-height:1.02; margin-top:2.2rem; }
-  #s1 .sub{ margin-top:1.3rem; font-size:1.18rem; color:var(--ink-soft); max-width:34em; line-height:1.6; }
+  #s1 .sub{ font-family:var(--font-sub); margin-top:1.3rem; font-size:1.18rem; color:var(--ink-soft); max-width:34em; line-height:1.6; }
   .meta-row{ display:flex; flex-wrap:wrap; gap:.5em 1.6em; margin-top:auto; padding-top:3rem; }
-  .meta-row div{ font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--ink-faint); }
+  .meta-row div{ font-family:var(--font-body); font-size:.78rem; color:var(--ink-faint); }
   .meta-row strong{ color:var(--ink-soft); font-weight:500; }
   .watermark{
-    position:absolute; right:-2vw; bottom:-4vh; font-family:"IBM Plex Mono",monospace;
+    position:absolute; right:-2vw; bottom:-4vh; font-family:var(--font-mono);
     font-size:min(30vw,20rem); font-weight:600; color:var(--ink); opacity:.035; line-height:1;
     pointer-events:none; user-select:none;
   }
@@ -154,12 +163,12 @@
   .stage-card{
     flex:1; background:var(--paper-raised); border:1px solid var(--line); padding:1.1rem 1.2rem;
   }
-  .stage-card .name{ font-weight:600; font-size:1.02rem; }
+  .stage-card .name{ font-family:var(--font-head); font-weight:400; font-size:1.05rem; }
   .stage-card .role{ font-size:.8rem; color:var(--ink-soft); margin-top:.3rem; }
-  .arrow{ display:flex; align-items:center; font-family:"IBM Plex Mono",monospace; color:var(--ink-faint); font-size:1.1rem; padding:0 .1rem; }
+  .arrow{ display:flex; align-items:center; font-family:var(--font-mono); color:var(--ink-faint); font-size:1.1rem; padding:0 .1rem; }
   .monitor-track{ display:flex; gap:.4rem; margin-top:.15rem; }
   .monitor-slot{ flex:1; display:flex; flex-direction:column; align-items:center; }
-  .monitor-slot .tick{ font-family:"IBM Plex Mono",monospace; color:var(--ink-faint); font-size:.95rem; line-height:1; }
+  .monitor-slot .tick{ font-family:var(--font-mono); color:var(--ink-faint); font-size:.95rem; line-height:1; }
   .monitor-band{
     margin-top:.15rem; background:transparent; border:1px dashed var(--line); padding:.85rem 1.2rem;
     text-align:center; font-size:.86rem; color:var(--ink-soft);
@@ -168,7 +177,7 @@
   .arrow-spacer{ width:1.6rem; }
 
   .stage-defs{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; margin-top:2.2rem; }
-  .stage-defs dt{ font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--accent); font-weight:500; }
+  .stage-defs dt{ font-family:var(--font-head); font-size:.85rem; color:var(--accent); font-weight:400; }
   .stage-defs dd{ margin:.35rem 0 0; font-size:.86rem; color:var(--ink-soft); line-height:1.5; }
 
   @media (max-width:860px){
@@ -180,19 +189,19 @@
   .steps{ counter-reset:step; margin-top:2.2rem; display:flex; flex-direction:column; gap:1.15rem; max-width:38em; }
   .step{ display:flex; gap:1rem; }
   .step .num{
-    counter-increment:step; font-family:"IBM Plex Mono",monospace; font-size:.85rem; color:var(--accent);
+    counter-increment:step; font-family:var(--font-mono); font-size:.85rem; color:var(--accent);
     flex:none; width:1.6rem; padding-top:.15rem;
   }
   .step .num::before{ content:"0" counter(step); }
   .step p{ margin:0; font-size:.98rem; }
   .step p b{ font-weight:600; }
   .notes{ display:flex; flex-direction:column; gap:.9rem; margin-top:1rem; }
-  .loop-tag{ display:inline-flex; align-items:center; gap:.4em; margin-top:1.6rem; font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--ink-soft); }
+  .loop-tag{ display:inline-flex; align-items:center; gap:.4em; margin-top:1.6rem; font-family:var(--font-body); font-size:.85rem; color:var(--ink-soft); }
 
   /* ===== scoring tables ===== */
   .score-table-wrap{ margin-top:1.8rem; }
   .formula{
-    margin-top:1.6rem; font-family:"IBM Plex Mono",monospace; font-size:1.05rem; color:var(--ink);
+    margin-top:1.6rem; font-family:var(--font-mono); font-size:1.05rem; color:var(--ink);
     background:var(--paper-raised); border:1px solid var(--line); display:inline-block; padding:.7rem 1.1rem;
   }
   .formula b{ color:var(--accent); }
@@ -201,15 +210,15 @@
   .matrix-wrap{ display:flex; gap:2.2rem; align-items:flex-start; margin-top:2rem; flex-wrap:wrap; }
   .matrix{ display:grid; grid-template-columns:5.2rem repeat(5,minmax(3.6rem,1fr)); gap:3px; }
   .matrix .corner,.matrix .colhead,.matrix .rowhead{
-    font-family:"IBM Plex Mono",monospace; font-size:.68rem; color:var(--ink-soft); display:flex; align-items:center;
+    font-family:var(--font-mono); font-size:.68rem; color:var(--ink-soft); display:flex; align-items:center;
   }
   .matrix .colhead{ justify-content:center; text-align:center; padding:.3rem 0; }
   .matrix .rowhead{ justify-content:flex-end; text-align:right; padding-right:.5rem; }
   .cell{
     aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
-    font-family:"IBM Plex Mono",monospace; font-weight:600; font-variant-numeric:tabular-nums; font-size:.95rem;
+    font-family:var(--font-mono); font-weight:600; font-variant-numeric:tabular-nums; font-size:.95rem;
   }
-  .cell.low{ background:var(--good); color:#eafce8; }
+  .cell.low{ background:var(--good); color:var(--good-ink); }
   .cell.med{ background:var(--warn); color:var(--warn-ink); }
   .cell.high{ background:var(--serious); color:var(--serious-ink); }
   .cell.crit{ background:var(--critical); color:var(--critical-ink); }
@@ -217,7 +226,7 @@
   .legend .row{ display:flex; align-items:center; gap:.6em; font-size:.86rem; color:var(--ink-soft); }
   .legend .sw{ width:.85em; height:.85em; flex:none; }
   .legend b{ color:var(--ink); font-weight:600; }
-  .axis-label{ font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); }
+  .axis-label{ font-family:var(--font-mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); }
 
   /* ===== bar chart ===== */
   .bars{ margin-top:2.2rem; display:flex; flex-direction:column; gap:1.05rem; max-width:44rem; }
@@ -230,16 +239,16 @@
   .bar-fill{ position:absolute; inset:0 auto 0 0; background:var(--accent); transition:background .2s; }
   .bar-row:hover .bar-fill{ background:var(--ink); }
   .bar-row:hover .lbl{ color:var(--ink); }
-  .bar-row .val{ font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; text-align:right; font-size:.92rem; }
+  .bar-row .val{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; text-align:right; font-size:.92rem; }
   .bars-note{ margin-top:1.2rem; font-size:.82rem; color:var(--ink-faint); max-width:38em; }
 
   /* ===== spotlight cards ===== */
   .card-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.2rem; }
   .risk-card{ background:var(--paper); padding:1.3rem 1.3rem 1.4rem; display:flex; flex-direction:column; gap:.6rem; }
-  .risk-card .tag{ align-self:flex-start; font-family:"IBM Plex Mono",monospace; font-size:.72rem; color:var(--accent); border:1px solid var(--accent); padding:.15em .5em; }
-  .risk-card h3{ font-size:1.05rem; font-family:"IBM Plex Sans",sans-serif; font-weight:600; }
+  .risk-card .tag{ align-self:flex-start; font-family:var(--font-mono); font-size:.72rem; color:var(--accent); border:1px solid var(--accent); padding:.15em .5em; }
+  .risk-card h3{ font-size:1.1rem; font-family:var(--font-head); font-weight:400; }
   .risk-card p{ margin:0; font-size:.86rem; color:var(--ink-soft); line-height:1.55; }
-  .risk-card .stages{ margin-top:auto; padding-top:.4rem; font-family:"IBM Plex Mono",monospace; font-size:.68rem; color:var(--ink-faint); }
+  .risk-card .stages{ margin-top:auto; padding-top:.4rem; font-family:var(--font-mono); font-size:.68rem; color:var(--ink-faint); }
   @media (max-width:860px){ .card-grid{ grid-template-columns:1fr 1fr; } }
   @media (max-width:560px){ .card-grid{ grid-template-columns:1fr; } }
 
@@ -247,20 +256,33 @@
   .register-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 2.4rem; margin-top:1.8rem; }
   .register-grid table{ font-size:.82rem; }
   .register-grid th,.register-grid td{ padding:.42rem .5rem; }
-  .register-grid td:first-child{ font-family:"IBM Plex Mono",monospace; color:var(--accent); font-size:.78rem; white-space:nowrap; }
+  .register-grid td:first-child{ font-family:var(--font-mono); color:var(--accent); font-size:.78rem; white-space:nowrap; }
   .register-grid td:last-child{ color:var(--ink-faint); font-size:.72rem; }
   @media (max-width:860px){ .register-grid{ grid-template-columns:1fr; } }
 
+  /* ===== standards mapping ===== */
+  .chip-row{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.8rem; }
+  .chip{ border:1px solid var(--line); padding:.55rem .9rem; background:var(--paper-raised); }
+  .chip .name{ font-family:var(--font-head); font-size:.86rem; }
+  .chip .sub{ font-family:var(--font-mono); font-size:.68rem; color:var(--ink-faint); margin-top:.2rem; }
+
+  /* ===== repo assets ===== */
+  .asset-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.2rem; }
+  .asset-card{ background:var(--paper); padding:1.2rem 1.3rem; }
+  .asset-card .file{ font-family:var(--font-mono); font-size:.88rem; color:var(--accent); }
+  .asset-card p{ margin:.5rem 0 0; font-size:.86rem; color:var(--ink-soft); line-height:1.5; }
+  @media (max-width:860px){ .asset-grid{ grid-template-columns:1fr; } }
+
   /* ===== closing ===== */
-  #s11 .sub{ font-size:1.1rem; color:var(--ink-soft); max-width:34em; margin-top:1.1rem; line-height:1.6; }
+  #s14 .sub{ font-family:var(--font-sub); font-size:1.1rem; color:var(--ink-soft); max-width:34em; margin-top:1.1rem; line-height:1.6; }
   .cta-row{ display:flex; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.4rem; max-width:40rem; }
   .cta{ flex:1; background:var(--paper); padding:1.1rem 1.3rem; }
-  .cta .k{ font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); }
+  .cta .k{ font-family:var(--font-head); font-weight:900; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); }
   .cta .v{ margin-top:.4rem; font-size:.92rem; }
 </style>
 
 <div class="progress" id="progress"></div>
-<div class="counter"><b id="counterCur">01</b><span>/ 11</span></div>
+<div class="counter"><b id="counterCur">01</b><span>/ 14</span></div>
 <div class="wordmark">RSAIRF</div>
 <nav class="dotnav" id="dotnav" aria-label="Slide navigation"></nav>
 
@@ -281,7 +303,7 @@
 <section class="slide" id="s2">
   <div class="slide-inner">
     <p class="kicker reveal-el">Why it exists</p>
-    <p class="reveal-el lede" style="font-family:'Newsreader',serif; font-style:italic; font-size:1.55rem; color:var(--ink); max-width:30em; line-height:1.35;">Every organization deploys and uses AI. Few build it. Almost none monitor it well.</p>
+    <p class="reveal-el lede" style="font-size:1.55rem; color:var(--ink); max-width:30em; line-height:1.35;">Every organization deploys and uses AI. Few build it. Almost none monitor it well.</p>
     <p class="reveal-el lede" style="margin-top:1.6rem;">The AI Risk Register is curated from public sources and the internal incident learnings of real client engagements &mdash; not written from theory. It exists because the biggest exposures usually aren&rsquo;t in the model itself. They&rsquo;re in the gaps around it: tools adopted without approval, and monitoring that was never built.</p>
     <div class="stat-row reveal-el">
       <div class="stat"><div class="n">30</div><div class="l">registered risks</div></div>
@@ -457,7 +479,61 @@
   </div>
 </section>
 
-<section class="slide" id="s11">
+<section class="slide" id="s11" data-wide>
+  <div class="slide-inner">
+    <p class="kicker reveal-el">Standards</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Mapped to existing governance</h2>
+    <p class="reveal-el lede">Every AIR## risk is cross-referenced so findings plug straight into the programs you already run.</p>
+    <div class="chip-row reveal-el">
+      <div class="chip"><div class="name">NIST AI RMF</div><div class="sub">Govern &middot; Map &middot; Measure &middot; Manage</div></div>
+      <div class="chip"><div class="name">OWASP LLM Top 10</div><div class="sub">2025 edition</div></div>
+      <div class="chip"><div class="name">EU AI Act</div><div class="sub">Articles 5&ndash;95</div></div>
+      <div class="chip"><div class="name">ISO/IEC 42001</div><div class="sub">Annex A controls</div></div>
+      <div class="chip"><div class="name">MITRE ATLAS</div><div class="sub">AML.T#### techniques</div></div>
+    </div>
+    <div class="score-table-wrap reveal-el scrollx">
+      <table>
+        <tr><th>AIR</th><th>Risk</th><th>OWASP LLM</th><th>EU AI Act</th><th>MITRE ATLAS</th></tr>
+        <tr><td class="n">AIR03</td><td>Data Leakage</td><td>LLM02 Sensitive Info</td><td>Art 10</td><td>AML.T0057</td></tr>
+        <tr><td class="n">AIR15</td><td>Adversarial Attacks</td><td>LLM01 Prompt Injection</td><td>Art 15</td><td>AML.T0051</td></tr>
+        <tr><td class="n">AIR26</td><td>RAG / Vector Store</td><td>LLM08 Vector Weakness</td><td>Art 10 &amp; 15</td><td>AML.T0070</td></tr>
+        <tr><td class="n">AIR27</td><td>Unbounded Consumption</td><td>LLM10 Unbounded</td><td>Art 15</td><td>AML.T0029</td></tr>
+      </table>
+    </div>
+    <p class="bars-note reveal-el">Full mapping in <span class="mono" style="font-size:.88em;">standards-map.csv</span>.</p>
+  </div>
+</section>
+
+<section class="slide" id="s12" data-wide>
+  <div class="slide-inner">
+    <p class="kicker reveal-el">In practice</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">From register to risk log</h2>
+    <p class="reveal-el lede">Record two ratings, an owner, and a control per applicable risk in your project&rsquo;s log &mdash; traceable back to the register by AIR ID.</p>
+    <div class="score-table-wrap reveal-el scrollx">
+      <table>
+        <tr><th>Initiative</th><th>AIR</th><th>Risk</th><th>L</th><th>I</th><th>Score</th><th>Level</th><th>Owner</th><th>Status</th></tr>
+        <tr><td>Support chatbot</td><td class="n">AIR05</td><td>No Validation / Improper Output</td><td class="n">3</td><td class="n">4</td><td class="n">12</td><td>High</td><td>ML Lead</td><td>Mitigating</td></tr>
+        <tr><td>Support chatbot</td><td class="n">AIR27</td><td>Unbounded Consumption</td><td class="n">2</td><td class="n">3</td><td class="n">6</td><td>Medium</td><td>Platform</td><td>Accepted</td></tr>
+      </table>
+    </div>
+    <p class="bars-note reveal-el">Template fields: likelihood, impact, score, level, controls, owner, sign-off, KRI / monitoring signal, next review, status &mdash; see <span class="mono" style="font-size:.88em;">risk-log.template.csv</span>.</p>
+  </div>
+</section>
+
+<section class="slide" id="s13" data-wide>
+  <div class="slide-inner">
+    <p class="kicker reveal-el">What&rsquo;s inside</p>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Four files, ready to use</h2>
+    <div class="asset-grid reveal-el">
+      <div class="asset-card"><div class="file">register.csv</div><p>The 30-risk AI Risk Register with IDs, lifecycle tags, and descriptions.</p></div>
+      <div class="asset-card"><div class="file">standards-map.csv</div><p>Cross-references to NIST, OWASP, EU AI Act, ISO 42001 &amp; MITRE ATLAS.</p></div>
+      <div class="asset-card"><div class="file">risk-log.template.csv</div><p>Ready-to-fill log for scoring, ownership, sign-off, and review cadence.</p></div>
+      <div class="asset-card"><div class="file">README.md</div><p>Lifecycle model, usage workflow, and scoring guidance.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s14">
   <div class="slide-inner">
     <p class="kicker reveal-el">Get involved</p>
     <h2 class="reveal-el" style="font-size:clamp(2rem,4vw,2.8rem);">Treat it as a living list.</h2>
