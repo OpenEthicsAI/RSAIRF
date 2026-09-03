@@ -54,13 +54,14 @@
   }
 
   *,*::before,*::after{ box-sizing:border-box; }
-  html{ scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  html{ scroll-snap-type:y mandatory; scroll-behavior:smooth; overflow-x:hidden; }
   @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
 
   body{
     margin:0; background:var(--paper); color:var(--ink);
     font-family:var(--font-body);
     font-size:16px; line-height:1.5;
+    overflow-x:hidden;
   }
 
   ::selection{ background:var(--accent); color:var(--accent-ink); }
@@ -148,7 +149,7 @@
   a.link:hover{ opacity:.75; }
 
   /* ===== slide 1 : title ===== */
-  #s1{ justify-content:space-between; }
+  #s1{ justify-content:space-between; overflow:hidden; }
   .brand{ display:flex; align-items:center; gap:.6em; }
   .brand-mark{ width:9px; height:9px; background:var(--accent); }
   .brand span{ font-family:var(--font-head); font-weight:900; font-size:.76rem; letter-spacing:.12em; color:var(--ink-soft); }
