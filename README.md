@@ -98,6 +98,18 @@ For every applicable risk, record two ratings and multiply them. This keeps prio
 | 4 | Major | Significant financial, regulatory, or reputational harm. |
 | 5 | Severe | Critical or potentially irreversible harm to people, rights, or the organization. |
 
+## How to cite
+
+If you use RSAIRF, please cite it. Citation metadata lives in [CITATION.cff](./CITATION.cff) — GitHub renders a “Cite this repository” button from it, and each tagged release is archived on [Zenodo](https://zenodo.org/) with a DOI (add the DOI badge here after the first archive). Release-by-release changes are tracked in [CHANGELOG.md](./CHANGELOG.md).
+
+## Author contributions
+
+Contributions are described with the [CRediT taxonomy](https://credit.niso.org/), and authors are listed in order of contribution.
+
+- **Nikita Lukianets** — Conceptualization, Methodology, Data curation, Writing – original draft, Project administration.
+- **Alice Pavaloiu** — Resources (provided reference materials); Writing – review & editing (reviewed the draft).
+- **Nada Madkour** — Resources (provided reference materials); Writing – review & editing (reviewed the draft).
+
 ## License
 
 This work is licensed under the Creative Commons Attribution 4.0

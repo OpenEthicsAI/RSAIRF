@@ -1,0 +1,54 @@
+{
+  "title": "Really Simple AI Risk Framework (RSAIRF)",
+  "description": "<p>The Really Simple AI Risk Framework (RSAIRF) is a lightweight, practical framework for identifying, scoring, and tracking the risks that arise when organizations build, deploy, or use AI. At its core is a curated register of 30 AI-specific risks, each mapped to the lifecycle stage where it typically appears and described in plain language. A simple likelihood &times; impact scoring model lets teams prioritize consistently without heavy tooling, and a ready-to-use risk log template turns the register into an auditable record of owners, controls, and review dates. Each risk is also cross-referenced to established AI governance and security standards, so findings connect directly to existing compliance and assurance work. RSAIRF is designed to be adopted in an afternoon and maintained as a living resource that teams can extend as new risks emerge.</p>",
+  "upload_type": "publication",
+  "publication_type": "report",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "version": "1.0.0",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Lukianets, Nikita",
+      "affiliation": "Open Ethics Initiative",
+      "orcid": "0009-0008-0371-9965"
+    },
+    {
+      "name": "Pavaloiu, Alice",
+      "affiliation": "Open Ethics Initiative",
+      "orcid": "0009-0009-7046-3629"
+    },
+    {
+      "name": "Madkour, Nada",
+      "affiliation": "Open Ethics Initiative",
+      "orcid": "0009-0002-9988-9008"
+    },
+    {
+      "name": "Open Ethics Initiative"
+    }
+  ],
+  "keywords": [
+    "AI risk",
+    "AI governance",
+    "AI risk management",
+    "risk register",
+    "risk assessment",
+    "risk scoring",
+    "AI safety",
+    "responsible AI",
+    "AI lifecycle",
+    "machine learning risk"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/OpenEthicsAI/RSAIRF",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://openethics.ai/really-simple-ai-risk-framework/",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
+    }
+  ]
+}

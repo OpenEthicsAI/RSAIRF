@@ -1,0 +1,61 @@
+# This CITATION.cff lets GitHub show a "Cite this repository" button and
+# seeds the Zenodo archive metadata. Update authors/version when they change,
+# and add the Zenodo DOI after the first archive (see the bottom of this file).
+cff-version: 1.2.0
+message: "If you use RSAIRF, please cite it as below."
+title: "Really Simple AI Risk Framework (RSAIRF)"
+abstract: >-
+  The Really Simple AI Risk Framework (RSAIRF) is a lightweight, practical
+  framework for identifying, scoring, and tracking the risks that arise when
+  organizations build, deploy, or use AI. At its core is a curated register of
+  30 AI-specific risks, each mapped to the lifecycle stage where it typically
+  appears and described in plain language. A simple likelihood x impact scoring
+  model lets teams prioritize consistently without heavy tooling, and a
+  ready-to-use risk log template turns the register into an auditable record of
+  owners, controls, and review dates. Each risk is also cross-referenced to
+  established AI governance and security standards, so findings connect directly
+  to existing compliance and assurance work. RSAIRF is designed to be adopted in
+  an afternoon and maintained as a living resource that teams can extend as new
+  risks emerge.
+# CFF only supports "software" or "dataset"; "dataset" is the closest fit for
+# this risk register. The Zenodo record is classified as a report via .zenodo.json.
+type: dataset
+# Author order reflects contribution (lead author first). CFF has no CRediT/role
+# field, so per-author contributions are documented in README.md (Author contributions).
+authors:
+  # --- Author 1 — lead author ---
+  - given-names: "Nikita"
+    family-names: "Lukianets"
+    affiliation: "Open Ethics Initiative"
+    orcid: "https://orcid.org/0009-0008-0371-9965"
+  # --- Author 2 — coauthor: reference materials + draft review ---
+  - given-names: "Alice"
+    family-names: "Pavaloiu"
+    affiliation: "Open Ethics Initiative"
+    orcid: "https://orcid.org/0009-0009-7046-3629"
+  # --- Author 3 — coauthor: reference materials + draft review ---
+  - given-names: "Nada"
+    family-names: "Madkour"
+    affiliation: "Open Ethics Initiative"
+    orcid: "https://orcid.org/0009-0002-9988-9008"
+  # --- Organization (entity author) ---
+  - name: "Open Ethics Initiative"
+    website: "https://openethics.ai"
+version: "1.0.0"
+date-released: "2026-09-06"
+license: CC-BY-4.0
+repository-code: "https://github.com/OpenEthicsAI/RSAIRF"
+url: "https://openethics.ai/really-simple-ai-risk-framework/"
+keywords:
+  - "AI risk"
+  - "AI governance"
+  - "AI risk management"
+  - "risk register"
+  - "risk assessment"
+  - "risk scoring"
+  - "AI safety"
+  - "responsible AI"
+  - "AI lifecycle"
+  - "machine learning risk"
+# After the first Zenodo archive, add the concept (all-versions) DOI here:
+# doi: "10.5281/zenodo.XXXXXXX"
