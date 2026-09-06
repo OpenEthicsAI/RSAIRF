@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RSAIRF</title>
-<meta name="description" content="Really Simple AI Risk Framework — a shared register for identifying, scoring, and tracking AI risk across the build/deploy/use lifecycle.">
+<meta name="description" content="Really Simple AI Risk Framework — an AI risk governance framework with a shared register for identifying, scoring, and tracking AI risk across the build/deploy/use lifecycle.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;900&family=Roboto+Slab:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;600;700;900&family=Roboto+Mono:wght@400;500;600&display=swap">
 <style>
   :root{
@@ -53,6 +53,29 @@
     --accent-secondary: #3894B8;
   }
 
+  /* first and last slides are always dark, regardless of theme */
+  #s1, #s14{
+    color-scheme: dark;
+    --paper:      #1B1F23;
+    --paper-raised:#24282C;
+    --ink:        #F2F2F0;
+    --ink-soft:   #C7C7C7;
+    --ink-faint:  #8A8A8A;
+    --line:       #34383C;
+    --accent:         #4B9C1C;
+    --accent-ink:     #10210A;
+    --accent-secondary: #3894B8;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  /* fixed nav overlay follows suit while a forced-dark slide is active */
+  body.dark-nav{
+    --ink:        #F2F2F0;
+    --ink-soft:   #C7C7C7;
+    --ink-faint:  #8A8A8A;
+    --accent:     #4B9C1C;
+  }
+
   *,*::before,*::after{ box-sizing:border-box; }
   html{ scroll-snap-type:y mandatory; scroll-behavior:smooth; overflow-x:hidden; }
   @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
@@ -87,6 +110,8 @@
     position:fixed; right:1.5rem; bottom:1.4rem; z-index:50;
     font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; color:var(--ink-faint);
   }
+  .wordmark a{ color:inherit; text-decoration:none; }
+  .wordmark a:hover{ color:var(--accent); }
   .dotnav{
     position:fixed; right:1.6rem; top:50%; transform:translateY(-50%); z-index:50;
     display:flex; flex-direction:column; gap:.55rem;
@@ -147,6 +172,9 @@
 
   a.link{ color:var(--accent-secondary); text-decoration:none; border-bottom:1px solid currentColor; }
   a.link:hover{ opacity:.75; }
+
+  .logo-lockup{ display:inline-flex; align-items:center; padding:0; }
+  .logo-lockup img{ height:1.5rem; width:auto; display:block; }
 
   /* ===== slide 1 : title ===== */
   #s1{ justify-content:space-between; overflow:hidden; }
@@ -215,12 +243,12 @@
 
   /* ===== risk matrix ===== */
   .matrix-wrap{ display:flex; gap:2.2rem; align-items:flex-start; margin-top:2rem; flex-wrap:wrap; }
-  .matrix{ display:grid; grid-template-columns:5.2rem repeat(5,minmax(3.6rem,1fr)); gap:3px; }
+  .matrix{ display:grid; grid-template-columns:8.4rem repeat(5,minmax(3.6rem,1fr)); gap:3px; }
   .matrix .corner,.matrix .colhead,.matrix .rowhead{
     font-family:var(--font-mono); font-size:.68rem; color:var(--ink-soft); display:flex; align-items:center;
   }
   .matrix .colhead{ justify-content:center; text-align:center; padding:.3rem 0; }
-  .matrix .rowhead{ justify-content:flex-end; text-align:right; padding-right:.5rem; }
+  .matrix .rowhead{ justify-content:flex-start; text-align:left; padding-right:.5rem; white-space:nowrap; }
   .cell{
     aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
     font-family:var(--font-mono); font-weight:600; font-variant-numeric:tabular-nums; font-size:.95rem;
@@ -292,14 +320,15 @@
 
 <div class="progress" id="progress"></div>
 <div class="counter"><b id="counterCur">01</b><span>/ 14</span></div>
-<div class="wordmark">RSAIRF</div>
+<div class="wordmark"><a href="https://openethics.ai/really-simple-ai-risk-framework/" target="_blank" rel="noopener">RSAIRF</a></div>
 <nav class="dotnav" id="dotnav" aria-label="Slide navigation"></nav>
 
 <section class="slide" id="s1" data-wide>
   <div class="slide-inner">
+    <div class="reveal-el logo-lockup" style="margin-bottom:1.6rem;"><img src="open-ethics-logo.png" alt="Open Ethics"></div>
     <div class="reveal-el brand"><span class="brand-mark"></span><span>AI RISK GOVERNANCE</span></div>
     <h1 class="reveal-el">Really Simple<br>AI&nbsp;Risk Framework</h1>
-    <p class="reveal-el sub">A shared register for identifying, scoring, and tracking what can go wrong when you build, ship, or run AI &mdash; thirty risks, four lifecycle stages, one ID space.</p>
+    <p class="reveal-el sub">AI risk governance framework with a shared register for identifying, scoring, and tracking what can go wrong when you build, ship, or run AI &mdash; thirty risks, four lifecycle stages, one ID space.</p>
   </div>
   <div class="meta-row reveal-el">
     <div><strong>RSAIRF</strong> &middot; Open Ethics Initiative</div>
@@ -312,7 +341,7 @@
 <section class="slide" id="s2">
   <div class="slide-inner">
     <p class="kicker reveal-el">Why it exists</p>
-    <p class="reveal-el lede" style="font-size:1.55rem; color:var(--ink); max-width:30em; line-height:1.35;">Every organization deploys and uses AI. Few build it. Almost none monitor it well.</p>
+    <p class="reveal-el lede" style="font-size:1.55rem; color:var(--ink); max-width:30em; line-height:1.35;">Organizations deploy and use AI. Few build it. Almost none monitor it well.</p>
     <p class="reveal-el lede" style="margin-top:1.6rem;">The AI Risk Register is curated from public sources and the internal incident learnings of real client engagements &mdash; not written from theory. It exists because the biggest exposures usually aren&rsquo;t in the model itself. They&rsquo;re in the gaps around it: tools adopted without approval, and monitoring that was never built.</p>
     <div class="stat-row reveal-el">
       <div class="stat"><div class="n">AIR 01&ndash;30</div><div class="l">30 traceable IDs</div></div>
@@ -325,7 +354,7 @@
 <section class="slide" id="s3" data-wide>
   <div class="slide-inner">
     <p class="kicker reveal-el">The lifecycle</p>
-    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Every initiative moves through four stages</h2>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Most initiatives move through four stages</h2>
     <div class="lifecycle reveal-el">
       <div class="stage-row">
         <div class="stage-card"><div class="name">Development</div><div class="role">Model Development</div></div>
@@ -369,7 +398,7 @@
 
 <section class="slide" id="s5">
   <div class="slide-inner">
-    <p class="kicker reveal-el">Scoring &middot; 1 of 2</p>
+    <p class="kicker reveal-el">Scoring &middot; Likelihood</p>
     <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">How probable it is</h2>
     <p class="reveal-el lede">For every applicable risk, rate <b style="color:var(--ink)">likelihood</b> &mdash; how probable it is that the risk materializes in your context.</p>
     <div class="score-table-wrap reveal-el scrollx">
@@ -387,7 +416,7 @@
 
 <section class="slide" id="s6">
   <div class="slide-inner">
-    <p class="kicker reveal-el">Scoring &middot; 2 of 2</p>
+    <p class="kicker reveal-el">Scoring &middot; Impact</p>
     <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">How severe, if it happens</h2>
     <p class="reveal-el lede">Then rate <b style="color:var(--ink)">impact</b> &mdash; the severity of the consequence if the risk does materialize.</p>
     <div class="score-table-wrap reveal-el scrollx">
@@ -491,7 +520,7 @@
 <section class="slide" id="s11" data-wide>
   <div class="slide-inner">
     <p class="kicker reveal-el">Standards</p>
-    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Mapped to existing governance</h2>
+    <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Mapped to existing governance models</h2>
     <p class="reveal-el lede">Every AIR## risk is cross-referenced so findings plug straight into the programs you already run.</p>
     <div class="chip-row reveal-el">
       <div class="chip"><div class="name">NIST AI RMF</div><div class="sub">Govern &middot; Map &middot; Measure &middot; Manage</div></div>
@@ -544,12 +573,14 @@
 
 <section class="slide" id="s14">
   <div class="slide-inner">
+    <div class="reveal-el logo-lockup" style="margin-bottom:1.6rem;"><img src="open-ethics-logo.png" alt="Open Ethics"></div>
     <p class="kicker reveal-el">Get involved</p>
-    <h2 class="reveal-el" style="font-size:clamp(2rem,4vw,2.8rem);">Treat it as a living list.</h2>
+    <h2 class="reveal-el" style="font-size:clamp(2rem,4vw,2.8rem);">Treat it as a living framework.</h2>
     <p class="reveal-el sub">If you identify a risk not represented here, propose it by opening an issue in the repository &mdash; your contribution may help other teams facing the same gap.</p>
     <div class="cta-row reveal-el">
       <div class="cta"><div class="k">Repository</div><div class="v"><a class="link" href="https://github.com/OpenEthicsAI/RSAIRF" target="_blank" rel="noopener">github.com/OpenEthicsAI/RSAIRF</a></div></div>
       <div class="cta"><div class="k">License</div><div class="v">CC BY 4.0</div></div>
+      <div class="cta"><div class="k">Contact</div><div class="v">contact@openethics.ai</div></div>
     </div>
   </div>
 </section>
@@ -559,6 +590,7 @@
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
   var total = slides.length;
   document.getElementById('counterCur').textContent = '01';
+  document.body.classList.add('dark-nav');
 
   var dotnav = document.getElementById('dotnav');
   slides.forEach(function(s, i){
@@ -583,6 +615,7 @@
           activeIndex = idx;
           counterCur.textContent = String(idx+1).padStart(2,'0');
           dots.forEach(function(d,i){ d.setAttribute('aria-current', i===idx ? 'true' : 'false'); });
+          document.body.classList.toggle('dark-nav', idx===0 || idx===total-1);
         }
       }
     });
