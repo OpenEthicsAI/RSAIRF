@@ -57,5 +57,5 @@ keywords:
   - "responsible AI"
   - "AI lifecycle"
   - "machine learning risk"
-# After the first Zenodo archive, add the concept (all-versions) DOI here:
-# doi: "10.5281/zenodo.XXXXXXX"
+# Concept (all-versions) DOI — resolves to the latest release on Zenodo.
+doi: "10.5281/zenodo.22552421"

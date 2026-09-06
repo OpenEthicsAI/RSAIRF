@@ -2,7 +2,8 @@
 
 **Really Simple AI Risk Framework** is your go to tool to identify and mitigate AI/ML-specific risks. The AI Risk Register of this framework is carefully curated based on various sources and internal incident learnings of our clients.
 
-[![RSAIRF](https://img.shields.io/badge/Open%20Ethics-RSAIRF-blue?style=flat-square&logo=github)](https://github.com/OpenEthicsAI/RSAIRF)
+[![RSAIRF](https://img.shields.io/badge/Open%20Ethics-RSAIRF-blue?style=flat-square&logo=github)](https://github.com/OpenEthicsAI/RSAIRF) [![DOI](https://zenodo.org/badge/1311701680.svg)](https://doi.org/10.5281/zenodo.22552421)
+
 
 ## AI Lifecycle
 
@@ -100,11 +101,9 @@ For every applicable risk, record two ratings and multiply them. This keeps prio
 
 ## How to cite
 
-If you use RSAIRF, please cite it. Citation metadata lives in [CITATION.cff](./CITATION.cff) — GitHub renders a “Cite this repository” button from it, and each tagged release is archived on [Zenodo](https://zenodo.org/) with a DOI (add the DOI badge here after the first archive). Release-by-release changes are tracked in [CHANGELOG.md](./CHANGELOG.md).
+If you use RSAIRF, please cite it — DOI [10.5281/zenodo.22552421](https://doi.org/10.5281/zenodo.22552421). Citation metadata lives in [CITATION.cff](./CITATION.cff), from which GitHub renders a “Cite this repository” button, and each tagged release is archived on [Zenodo](https://zenodo.org/). Release-by-release changes are tracked in [CHANGELOG.md](./CHANGELOG.md).
 
 ## Author contributions
-
-Contributions are described with the [CRediT taxonomy](https://credit.niso.org/), and authors are listed in order of contribution.
 
 - **Nikita Lukianets** — Conceptualization, Methodology, Data curation, Writing – original draft, Project administration.
 - **Alice Pavaloiu** — Resources (provided reference materials); Writing – review & editing (reviewed the draft).
