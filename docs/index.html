@@ -396,10 +396,51 @@
       "about": { "@id": "https://openethics.ai/really-simple-ai-risk-framework/#framework" },
       "mainEntity": { "@id": "https://openethics.ai/really-simple-ai-risk-framework/#framework" },
       "isPartOf": { "@id": "https://openethicsai.github.io/RSAIRF/#website" },
+      "hasPart": { "@id": "https://openethicsai.github.io/RSAIRF/#risk-register" },
       "author": { "@id": "https://openethics.ai/#organization" },
       "publisher": { "@id": "https://openethics.ai/#organization" },
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "inLanguage": "en"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://openethicsai.github.io/RSAIRF/#risk-register",
+      "name": "AI Risk Register (AIR01–AIR30)",
+      "description": "The 30 risks of the Really Simple AI Risk Framework, each tagged to the lifecycle stage(s) where it is typically introduced or first exploitable.",
+      "about": { "@id": "https://openethics.ai/really-simple-ai-risk-framework/#framework" },
+      "numberOfItems": 30,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "AIR01 Shadow AI Deployments — Deployment, Use" },
+        { "@type": "ListItem", "position": 2, "name": "AIR02 Supply Chain Vulnerabilities — Development, Deployment" },
+        { "@type": "ListItem", "position": 3, "name": "AIR03 Data Leakage — Development, Use" },
+        { "@type": "ListItem", "position": 4, "name": "AIR04 Cross-Border Data Transfer — Deployment, Use" },
+        { "@type": "ListItem", "position": 5, "name": "AIR05 No Validation / Improper Output — Use" },
+        { "@type": "ListItem", "position": 6, "name": "AIR06 Insecure Deployment Pipelines — Deployment" },
+        { "@type": "ListItem", "position": 7, "name": "AIR07 Critical 3rd-party Dependency — Development, Deployment" },
+        { "@type": "ListItem", "position": 8, "name": "AIR08 Excessive Agency / Over-Reliance on AI — Use" },
+        { "@type": "ListItem", "position": 9, "name": "AIR09 Model Poisoning — Development" },
+        { "@type": "ListItem", "position": 10, "name": "AIR10 Model Inversion / Membership Inference / Theft — Deployment, Use" },
+        { "@type": "ListItem", "position": 11, "name": "AIR11 Poor Monitoring — Monitoring" },
+        { "@type": "ListItem", "position": 12, "name": "AIR12 Feedback Loop Contamination — Use, Monitoring" },
+        { "@type": "ListItem", "position": 13, "name": "AIR13 Alert Fatigue — Monitoring" },
+        { "@type": "ListItem", "position": 14, "name": "AIR14 Insider Threats — Development, Deployment, Use" },
+        { "@type": "ListItem", "position": 15, "name": "AIR15 Adversarial Attacks — Use" },
+        { "@type": "ListItem", "position": 16, "name": "AIR16 Model Drift — Use, Monitoring" },
+        { "@type": "ListItem", "position": 17, "name": "AIR17 Bias & Discrimination in Outputs — Development, Use" },
+        { "@type": "ListItem", "position": 18, "name": "AIR18 Critical Unintended Consequences — Development, Deployment, Use" },
+        { "@type": "ListItem", "position": 19, "name": "AIR19 Censorship / Guardrail interference — Use" },
+        { "@type": "ListItem", "position": 20, "name": "AIR20 Deployment misfit — Deployment, Use" },
+        { "@type": "ListItem", "position": 21, "name": "AIR21 Lack of Explainability / Provenance opacity — Development, Use" },
+        { "@type": "ListItem", "position": 22, "name": "AIR22 No Accountability — Development, Deployment, Monitoring" },
+        { "@type": "ListItem", "position": 23, "name": "AIR23 Unclear Model Ownership / IP — Development, Use" },
+        { "@type": "ListItem", "position": 24, "name": "AIR24 Output Integrity Tampering — Use" },
+        { "@type": "ListItem", "position": 25, "name": "AIR25 System Prompt / Instruction Leakage — Use" },
+        { "@type": "ListItem", "position": 26, "name": "AIR26 RAG / Vector Store Vulnerabilities — Development, Use" },
+        { "@type": "ListItem", "position": 27, "name": "AIR27 Unbounded Consumption — Use, Monitoring" },
+        { "@type": "ListItem", "position": 28, "name": "AIR28 Malicious Use / Out-of-Scope Exploitation — Deployment, Use" },
+        { "@type": "ListItem", "position": 29, "name": "AIR29 Multi-Agent & Agentic AI Risks — Development, Deployment, Use" },
+        { "@type": "ListItem", "position": 30, "name": "AIR30 Environmental / Sustainability Impact — Development, Use" }
+      ]
     }
   ]
 }
@@ -407,10 +448,12 @@
 </head>
 <body>
 
-<div class="progress" id="progress"></div>
-<div class="counter"><b id="counterCur">01</b><span>/ 14</span></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="counter" aria-hidden="true"><b id="counterCur">01</b><span>/ 14</span></div>
 <div class="wordmark"><a href="https://openethics.ai/really-simple-ai-risk-framework/" target="_blank" rel="noopener">RSAIRF</a></div>
 <nav class="dotnav" id="dotnav" aria-label="Slide navigation"></nav>
+
+<main>
 
 <section class="slide" id="s1" data-wide>
   <div class="slide-inner">
@@ -530,8 +573,45 @@
     <div class="matrix-wrap reveal-el">
       <div>
         <div class="axis-label" style="margin-bottom:.5rem;">Impact &rarr;</div>
-        <div class="matrix" id="matrixGrid"></div>
-        <div class="axis-label" style="margin-top:.6rem; writing-mode:vertical-rl; display:none;"></div>
+        <div class="matrix" id="matrixGrid">
+          <div class="corner"></div>
+          <div class="colhead">1</div>
+          <div class="colhead">2</div>
+          <div class="colhead">3</div>
+          <div class="colhead">4</div>
+          <div class="colhead">5</div>
+          <div class="rowhead">1 &middot; Rare</div>
+          <div class="cell low">1</div>
+          <div class="cell low">2</div>
+          <div class="cell low">3</div>
+          <div class="cell low">4</div>
+          <div class="cell med">5</div>
+          <div class="rowhead">2 &middot; Unlikely</div>
+          <div class="cell low">2</div>
+          <div class="cell low">4</div>
+          <div class="cell med">6</div>
+          <div class="cell med">8</div>
+          <div class="cell high">10</div>
+          <div class="rowhead">3 &middot; Possible</div>
+          <div class="cell low">3</div>
+          <div class="cell med">6</div>
+          <div class="cell med">9</div>
+          <div class="cell high">12</div>
+          <div class="cell crit">15</div>
+          <div class="rowhead">4 &middot; Likely</div>
+          <div class="cell low">4</div>
+          <div class="cell med">8</div>
+          <div class="cell high">12</div>
+          <div class="cell crit">16</div>
+          <div class="cell crit">20</div>
+          <div class="rowhead">5 &middot; Almost certain</div>
+          <div class="cell med">5</div>
+          <div class="cell high">10</div>
+          <div class="cell crit">15</div>
+          <div class="cell crit">20</div>
+          <div class="cell crit">25</div>
+        </div>
+        <div class="axis-label" style="margin-top:.6rem;">Likelihood &darr;</div>
       </div>
       <div class="legend">
         <div class="axis-label" style="margin-bottom:.2rem;">Priority band</div>
@@ -548,7 +628,28 @@
   <div class="slide-inner">
     <p class="kicker reveal-el">The register</p>
     <h2 class="reveal-el" style="font-size:clamp(1.7rem,3vw,2.3rem);">Thirty risks, mapped across four stages</h2>
-    <div class="bars reveal-el" id="barsWrap"></div>
+    <div class="bars reveal-el" id="barsWrap">
+      <div class="bar-row">
+        <div class="lbl">Use</div>
+        <div class="bar-track"><div class="grid"><i></i><i></i><i></i><i></i><i></i></div><div class="bar-fill" style="width:100.0%"></div></div>
+        <div class="val">23</div>
+      </div>
+      <div class="bar-row">
+        <div class="lbl">Development</div>
+        <div class="bar-track"><div class="grid"><i></i><i></i><i></i><i></i><i></i></div><div class="bar-fill" style="width:56.5%"></div></div>
+        <div class="val">13</div>
+      </div>
+      <div class="bar-row">
+        <div class="lbl">Deployment</div>
+        <div class="bar-track"><div class="grid"><i></i><i></i><i></i><i></i><i></i></div><div class="bar-fill" style="width:52.2%"></div></div>
+        <div class="val">12</div>
+      </div>
+      <div class="bar-row">
+        <div class="lbl">Monitoring</div>
+        <div class="bar-track"><div class="grid"><i></i><i></i><i></i><i></i><i></i></div><div class="bar-fill" style="width:26.1%"></div></div>
+        <div class="val">6</div>
+      </div>
+    </div>
     <p class="bars-note reveal-el">Counts sum to more than 30 because several risks are tagged to more than one lifecycle stage.</p>
   </div>
 </section>
@@ -602,41 +703,44 @@
   <div class="slide-inner">
     <p class="kicker reveal-el">Full register</p>
     <h2 class="reveal-el" style="font-size:clamp(1.6rem,3vw,2.1rem);">All thirty, AIR01&ndash;AIR30</h2>
-    <div class="register-grid reveal-el" id="registerGrid"></div>
-    <noscript>
-      <ul>
-        <li><b>AIR01</b> Shadow AI Deployments &mdash; Deployment, Use</li>
-        <li><b>AIR02</b> Supply Chain Vulnerabilities &mdash; Development, Deployment</li>
-        <li><b>AIR03</b> Data Leakage &mdash; Development, Use</li>
-        <li><b>AIR04</b> Cross-Border Data Transfer &mdash; Deployment, Use</li>
-        <li><b>AIR05</b> No Validation / Improper Output &mdash; Use</li>
-        <li><b>AIR06</b> Insecure Deployment Pipelines &mdash; Deployment</li>
-        <li><b>AIR07</b> Critical 3rd-party Dependency &mdash; Development, Deployment</li>
-        <li><b>AIR08</b> Excessive Agency / Over-Reliance on AI &mdash; Use</li>
-        <li><b>AIR09</b> Model Poisoning &mdash; Development</li>
-        <li><b>AIR10</b> Model Inversion / Membership Inference / Theft &mdash; Deployment, Use</li>
-        <li><b>AIR11</b> Poor Monitoring &mdash; Monitoring</li>
-        <li><b>AIR12</b> Feedback Loop Contamination &mdash; Use, Monitoring</li>
-        <li><b>AIR13</b> Alert Fatigue &mdash; Monitoring</li>
-        <li><b>AIR14</b> Insider Threats &mdash; Development, Deployment, Use</li>
-        <li><b>AIR15</b> Adversarial Attacks &mdash; Use</li>
-        <li><b>AIR16</b> Model Drift &mdash; Use, Monitoring</li>
-        <li><b>AIR17</b> Bias &amp; Discrimination in Outputs &mdash; Development, Use</li>
-        <li><b>AIR18</b> Critical Unintended Consequences &mdash; Development, Deployment, Use</li>
-        <li><b>AIR19</b> Censorship / Guardrail interference &mdash; Use</li>
-        <li><b>AIR20</b> Deployment misfit &mdash; Deployment, Use</li>
-        <li><b>AIR21</b> Lack of Explainability / Provenance opacity &mdash; Development, Use</li>
-        <li><b>AIR22</b> No Accountability &mdash; Development, Deployment, Monitoring</li>
-        <li><b>AIR23</b> Unclear Model Ownership / IP &mdash; Development, Use</li>
-        <li><b>AIR24</b> Output Integrity Tampering &mdash; Use</li>
-        <li><b>AIR25</b> System Prompt / Instruction Leakage &mdash; Use</li>
-        <li><b>AIR26</b> RAG / Vector Store Vulnerabilities &mdash; Development, Use</li>
-        <li><b>AIR27</b> Unbounded Consumption &mdash; Use, Monitoring</li>
-        <li><b>AIR28</b> Malicious Use / Out-of-Scope Exploitation &mdash; Deployment, Use</li>
-        <li><b>AIR29</b> Multi-Agent &amp; Agentic AI Risks &mdash; Development, Deployment, Use</li>
-        <li><b>AIR30</b> Environmental / Sustainability Impact &mdash; Development, Use</li>
-      </ul>
-    </noscript>
+    <div class="register-grid reveal-el" id="registerGrid">
+      <table>
+        <tr><th>ID</th><th>Risk</th><th>Stage</th></tr>
+        <tr><td>AIR01</td><td>Shadow AI Deployments</td><td>Deployment, Use</td></tr>
+        <tr><td>AIR02</td><td>Supply Chain Vulnerabilities</td><td>Development, Deployment</td></tr>
+        <tr><td>AIR03</td><td>Data Leakage</td><td>Development, Use</td></tr>
+        <tr><td>AIR04</td><td>Cross-Border Data Transfer</td><td>Deployment, Use</td></tr>
+        <tr><td>AIR05</td><td>No Validation / Improper Output</td><td>Use</td></tr>
+        <tr><td>AIR06</td><td>Insecure Deployment Pipelines</td><td>Deployment</td></tr>
+        <tr><td>AIR07</td><td>Critical 3rd-party Dependency</td><td>Development, Deployment</td></tr>
+        <tr><td>AIR08</td><td>Excessive Agency / Over-Reliance on AI</td><td>Use</td></tr>
+        <tr><td>AIR09</td><td>Model Poisoning</td><td>Development</td></tr>
+        <tr><td>AIR10</td><td>Model Inversion / Membership Inference / Theft</td><td>Deployment, Use</td></tr>
+        <tr><td>AIR11</td><td>Poor Monitoring</td><td>Monitoring</td></tr>
+        <tr><td>AIR12</td><td>Feedback Loop Contamination</td><td>Use, Monitoring</td></tr>
+        <tr><td>AIR13</td><td>Alert Fatigue</td><td>Monitoring</td></tr>
+        <tr><td>AIR14</td><td>Insider Threats</td><td>Development, Deployment, Use</td></tr>
+        <tr><td>AIR15</td><td>Adversarial Attacks</td><td>Use</td></tr>
+      </table>
+      <table>
+        <tr><th>ID</th><th>Risk</th><th>Stage</th></tr>
+        <tr><td>AIR16</td><td>Model Drift</td><td>Use, Monitoring</td></tr>
+        <tr><td>AIR17</td><td>Bias &amp; Discrimination in Outputs</td><td>Development, Use</td></tr>
+        <tr><td>AIR18</td><td>Critical Unintended Consequences</td><td>Development, Deployment, Use</td></tr>
+        <tr><td>AIR19</td><td>Censorship / Guardrail interference</td><td>Use</td></tr>
+        <tr><td>AIR20</td><td>Deployment misfit</td><td>Deployment, Use</td></tr>
+        <tr><td>AIR21</td><td>Lack of Explainability / Provenance opacity</td><td>Development, Use</td></tr>
+        <tr><td>AIR22</td><td>No Accountability</td><td>Development, Deployment, Monitoring</td></tr>
+        <tr><td>AIR23</td><td>Unclear Model Ownership / IP</td><td>Development, Use</td></tr>
+        <tr><td>AIR24</td><td>Output Integrity Tampering</td><td>Use</td></tr>
+        <tr><td>AIR25</td><td>System Prompt / Instruction Leakage</td><td>Use</td></tr>
+        <tr><td>AIR26</td><td>RAG / Vector Store Vulnerabilities</td><td>Development, Use</td></tr>
+        <tr><td>AIR27</td><td>Unbounded Consumption</td><td>Use, Monitoring</td></tr>
+        <tr><td>AIR28</td><td>Malicious Use / Out-of-Scope Exploitation</td><td>Deployment, Use</td></tr>
+        <tr><td>AIR29</td><td>Multi-Agent &amp; Agentic AI Risks</td><td>Development, Deployment, Use</td></tr>
+        <tr><td>AIR30</td><td>Environmental / Sustainability Impact</td><td>Development, Use</td></tr>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -708,6 +812,8 @@
   </div>
 </section>
 
+</main>
+
 <script>
 (function(){
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
@@ -763,82 +869,6 @@
     }
   });
 
-  // risk matrix
-  var likelihoods = ['Rare','Unlikely','Possible','Likely','Almost certain'];
-  var impacts = ['Negligible','Minor','Moderate','Major','Severe'];
-  function band(v){ if(v<=4) return 'low'; if(v<=9) return 'med'; if(v<=14) return 'high'; return 'crit'; }
-  var grid = document.getElementById('matrixGrid');
-  var html = '<div class="corner"></div>';
-  impacts.forEach(function(name,i){ html += '<div class="colhead">'+ (i+1) +'</div>'; });
-  for(var l=1;l<=5;l++){
-    html += '<div class="rowhead">'+ l +' &middot; '+ likelihoods[l-1] +'</div>';
-    for(var im=1;im<=5;im++){
-      var v = l*im;
-      html += '<div class="cell '+ band(v) +'">'+ v +'</div>';
-    }
-  }
-  grid.innerHTML = html;
-
-  // stage distribution bars
-  var stageData = [
-    { label:'Use', value:23 },
-    { label:'Development', value:13 },
-    { label:'Deployment', value:12 },
-    { label:'Monitoring', value:6 }
-  ];
-  var max = Math.max.apply(null, stageData.map(function(d){return d.value;}));
-  var barsWrap = document.getElementById('barsWrap');
-  barsWrap.innerHTML = stageData.map(function(d){
-    var pct = (d.value/max*100).toFixed(1);
-    return '<div class="bar-row">'+
-      '<div class="lbl">'+ d.label +'</div>'+
-      '<div class="bar-track"><div class="grid">'+ '<i></i>'.repeat(5) +'</div><div class="bar-fill" style="width:'+ pct +'%"></div></div>'+
-      '<div class="val">'+ d.value +'</div>'+
-    '</div>';
-  }).join('');
-
-  // full register
-  var register = [
-    ['AIR01','Shadow AI Deployments','Deployment, Use'],
-    ['AIR02','Supply Chain Vulnerabilities','Development, Deployment'],
-    ['AIR03','Data Leakage','Development, Use'],
-    ['AIR04','Cross-Border Data Transfer','Deployment, Use'],
-    ['AIR05','No Validation / Improper Output','Use'],
-    ['AIR06','Insecure Deployment Pipelines','Deployment'],
-    ['AIR07','Critical 3rd-party Dependency','Development, Deployment'],
-    ['AIR08','Excessive Agency / Over-Reliance on AI','Use'],
-    ['AIR09','Model Poisoning','Development'],
-    ['AIR10','Model Inversion / Membership Inference / Theft','Deployment, Use'],
-    ['AIR11','Poor Monitoring','Monitoring'],
-    ['AIR12','Feedback Loop Contamination','Use, Monitoring'],
-    ['AIR13','Alert Fatigue','Monitoring'],
-    ['AIR14','Insider Threats','Development, Deployment, Use'],
-    ['AIR15','Adversarial Attacks','Use'],
-    ['AIR16','Model Drift','Use, Monitoring'],
-    ['AIR17','Bias & Discrimination in Outputs','Development, Use'],
-    ['AIR18','Critical Unintended Consequences','Development, Deployment, Use'],
-    ['AIR19','Censorship/Guardrail interference','Use'],
-    ['AIR20','Deployment misfit','Deployment, Use'],
-    ['AIR21','Lack of Explainability / Provenance opacity','Development, Use'],
-    ['AIR22','No Accountability','Development, Deployment, Monitoring'],
-    ['AIR23','Unclear Model Ownership/IP','Development, Use'],
-    ['AIR24','Output Integrity Tampering','Use'],
-    ['AIR25','System Prompt / Instruction Leakage','Use'],
-    ['AIR26','RAG / Vector Store Vulnerabilities','Development, Use'],
-    ['AIR27','Unbounded Consumption','Use, Monitoring'],
-    ['AIR28','Malicious Use / Out-of-Scope Exploitation','Deployment, Use'],
-    ['AIR29','Multi-Agent & Agentic AI Risks','Development, Deployment, Use'],
-    ['AIR30','Environmental / Sustainability Impact','Development, Use']
-  ];
-  function tableFor(rows){
-    var out = '<table><tr><th>ID</th><th>Risk</th><th>Stage</th></tr>';
-    rows.forEach(function(r){
-      out += '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';
-    });
-    return out + '</table>';
-  }
-  document.getElementById('registerGrid').innerHTML =
-    tableFor(register.slice(0,15)) + tableFor(register.slice(15));
 })();
 </script>
 </body>
