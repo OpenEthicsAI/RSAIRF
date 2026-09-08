@@ -1,0 +1,61 @@
+# Really Simple AI Risk Framework (RSAIRF)
+
+> An AI risk governance framework with a shared, versioned register for identifying, scoring, and tracking AI/ML-specific risk across the build, deploy, and use lifecycle. Maintained by the Open Ethics Initiative and licensed CC BY 4.0.
+
+RSAIRF gives teams one shared ID space (AIR01–AIR30) for AI risk. Each risk is tagged to the lifecycle stages where it is typically introduced or first exploitable, and cross-referenced to established governance models so findings plug into programs you already run.
+
+- Lifecycle stages: Development, Deployment, Use, and continuous Monitoring & Evaluation (which runs across the other three).
+- Scoring: rate Likelihood (1–5) and Impact (1–5); Risk score = Likelihood × Impact (range 1–25).
+- Priority bands: Low (1–4), Medium (5–9), High (10–14), Critical (15–25).
+- Standards mapped: NIST AI RMF, OWASP LLM Top 10 (2025), EU AI Act, ISO/IEC 42001, MITRE ATLAS.
+
+## Core resources
+
+- [Project page](https://openethics.ai/really-simple-ai-risk-framework/): Canonical home page for the framework.
+- [Web presentation](https://openethicsai.github.io/RSAIRF/): Single-page presentation of the lifecycle model, scoring, and register.
+- [GitHub repository](https://github.com/OpenEthicsAI/RSAIRF): Source, issues, and all framework files.
+- [README](https://github.com/OpenEthicsAI/RSAIRF/blob/main/README.md): Lifecycle model, usage workflow, and scoring guidance.
+- [register.csv](https://github.com/OpenEthicsAI/RSAIRF/blob/main/register.csv): The 30-risk AI Risk Register with IDs, lifecycle tags, and descriptions.
+- [standards-map.csv](https://github.com/OpenEthicsAI/RSAIRF/blob/main/standards-map.csv): Cross-references from each AIR## risk to NIST, OWASP, EU AI Act, ISO/IEC 42001, and MITRE ATLAS.
+- [risk-log.template.csv](https://github.com/OpenEthicsAI/RSAIRF/blob/main/risk-log.template.csv): Ready-to-fill log for scoring, ownership, sign-off, and review cadence.
+
+## AI Risk Register (AIR01–AIR30)
+
+- AIR01 Shadow AI Deployments — Deployment, Use
+- AIR02 Supply Chain Vulnerabilities — Development, Deployment
+- AIR03 Data Leakage — Development, Use
+- AIR04 Cross-Border Data Transfer — Deployment, Use
+- AIR05 No Validation / Improper Output — Use
+- AIR06 Insecure Deployment Pipelines — Deployment
+- AIR07 Critical 3rd-party Dependency — Development, Deployment
+- AIR08 Excessive Agency / Over-Reliance on AI — Use
+- AIR09 Model Poisoning — Development
+- AIR10 Model Inversion / Membership Inference / Theft — Deployment, Use
+- AIR11 Poor Monitoring — Monitoring
+- AIR12 Feedback Loop Contamination — Use, Monitoring
+- AIR13 Alert Fatigue — Monitoring
+- AIR14 Insider Threats — Development, Deployment, Use
+- AIR15 Adversarial Attacks — Use
+- AIR16 Model Drift — Use, Monitoring
+- AIR17 Bias & Discrimination in Outputs — Development, Use
+- AIR18 Critical Unintended Consequences — Development, Deployment, Use
+- AIR19 Censorship / Guardrail interference — Use
+- AIR20 Deployment misfit — Deployment, Use
+- AIR21 Lack of Explainability / Provenance opacity — Development, Use
+- AIR22 No Accountability — Development, Deployment, Monitoring
+- AIR23 Unclear Model Ownership / IP — Development, Use
+- AIR24 Output Integrity Tampering — Use
+- AIR25 System Prompt / Instruction Leakage — Use
+- AIR26 RAG / Vector Store Vulnerabilities — Development, Use
+- AIR27 Unbounded Consumption — Use, Monitoring
+- AIR28 Malicious Use / Out-of-Scope Exploitation — Deployment, Use
+- AIR29 Multi-Agent & Agentic AI Risks — Development, Deployment, Use
+- AIR30 Environmental / Sustainability Impact — Development, Use
+
+## Optional
+
+- [Zenodo DOI](https://doi.org/10.5281/zenodo.22552421): Citable archived release.
+- [CITATION.cff](https://github.com/OpenEthicsAI/RSAIRF/blob/main/CITATION.cff): Citation metadata.
+- [CHANGELOG.md](https://github.com/OpenEthicsAI/RSAIRF/blob/main/CHANGELOG.md): Version history.
+- [License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/): Reuse terms.
+- [Contact](mailto:contact@openethics.ai): Open Ethics Initiative.

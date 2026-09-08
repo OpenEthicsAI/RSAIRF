@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      .head { font-family: 'Exo 2', 'Helvetica Neue', Arial, sans-serif; }
+      .sub  { font-family: 'Roboto Slab', Georgia, serif; }
+      .mono { font-family: 'Roboto Mono', Menlo, monospace; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="630" fill="#1B1F23"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#4B9C1C"/>
+
+  <!-- watermark -->
+  <text class="mono" x="1170" y="600" text-anchor="end" font-size="230" font-weight="600"
+        fill="#F2F2F0" fill-opacity="0.04">01&#8211;30</text>
+
+  <!-- kicker -->
+  <rect x="80" y="96" width="13" height="13" fill="#4B9C1C"/>
+  <text class="head" x="106" y="108" font-size="20" font-weight="900"
+        letter-spacing="3" fill="#4B9C1C">AI RISK GOVERNANCE</text>
+
+  <!-- title -->
+  <text class="head" x="78" y="248" font-size="92" font-weight="300" fill="#F2F2F0">Really Simple</text>
+  <text class="head" x="78" y="344" font-size="92" font-weight="300" fill="#F2F2F0">AI Risk Framework</text>
+
+  <!-- subtitle -->
+  <text class="sub" x="80" y="428" font-size="30" fill="#C7C7C7">Identify, score, and track AI risk across the</text>
+  <text class="sub" x="80" y="468" font-size="30" fill="#C7C7C7">build, deploy, and use lifecycle.</text>
+
+  <!-- stat line -->
+  <text class="mono" x="80" y="536" font-size="24" font-weight="600" fill="#F2F2F0">30 risks
+    <tspan fill="#8A8A8A">&#160;&#183;&#160;</tspan>4 lifecycle stages<tspan fill="#8A8A8A">&#160;&#183;&#160;</tspan>5 governance models</text>
+
+  <!-- footer -->
+  <text class="mono" x="80" y="596" font-size="20" font-weight="600" fill="#4B9C1C">RSAIRF</text>
+  <text class="mono" x="1120" y="596" text-anchor="end" font-size="18"
+        fill="#8A8A8A">github.com/OpenEthicsAI/RSAIRF &#183; CC BY 4.0</text>
+</svg>

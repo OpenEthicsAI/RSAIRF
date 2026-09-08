@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://openethicsai.github.io/RSAIRF/sitemap.xml
